@@ -63,14 +63,14 @@ export async function requireUserId(
   return userId;
 }
 
-export async function getUser(db: PrismaClient, request: Request) {
+export async function getUser(request: Request) {
   const userId = await getUserId(request);
   if (typeof userId !== "string") {
     return null;
   }
 
   try {
-    const user = await db.user.findUnique({ where: { id: userId } });
+    const user = await db.user.findUniqueOrThrow({ where: { id: userId } });
     return user;
   } catch {
     throw logout(request);

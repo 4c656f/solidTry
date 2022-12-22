@@ -12,13 +12,11 @@ const PrivateRoutes:Component<PrivateRoutesProps> = (props:PrivateRoutesProps) =
         
     } = props
 
-    console.log('renderRoute')
     
     return (
-        <div>
-            <h1>privateRoute</h1>
+        <>
             <Outlet/>
-        </div>
+        </>
     );
 };
 

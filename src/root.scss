@@ -191,7 +191,7 @@ code {
 
 }
 
-header {
+.main_section{
   width: 100%;
 }
 
@@ -200,7 +200,8 @@ main {
   height: 1px;
   display: flex;
   flex-direction: column;
-
+  grid-gap: 12px;
+  @include small_padding($vertical: 12px)
 }
 ul{
   list-style-type: none;

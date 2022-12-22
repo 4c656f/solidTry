@@ -5,6 +5,7 @@ import {marked, Renderer} from 'marked'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-typescript'
 import './codeTheme.scss'
+import TextArea from '~/components/ui/TextArea/TextArea';
 
 type IndexProps = {
 
@@ -16,7 +17,7 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
 
     } = props
 
-    console.log('renderchild')
+
     const [textAreaValue, setTextAreaValue] = createSignal('# title1 \n' +
         '## title2\n' +
         '### title3\n' +
@@ -41,10 +42,10 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
     const [textTitle, setTextTitle] = createSignal('')
 
     //CONTAINER REF
-    let dragContainerRef:any
+    let dragContainerRef!:HTMLDivElement
 
     //TEXTAREA REF
-    let textAreaRef:any
+    let textAreaRef!:HTMLTextAreaElement
 
 
 
@@ -71,7 +72,7 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
 
     const handleMouseMove = (e: MouseEvent) => {
         e.preventDefault()
-        dragContainerRef.style.width = `${e.clientX}px`
+        dragContainerRef.style.width = `${e.clientX - 10}px`
     }
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -128,7 +129,7 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
                     ref={dragContainerRef}
                     class={classes.editor_container_item}
                 >
-                    <textarea
+                    <TextArea
                         value={textAreaValue()}
                         ref={textAreaRef}
 

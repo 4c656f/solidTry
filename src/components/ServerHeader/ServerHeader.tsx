@@ -7,15 +7,28 @@ import classes from "./serverHeader.module.scss";
 import Button from "../ui/Button/Button";
 import {A} from 'solid-start';
 import {setIsDark} from "~/sharedSignals/theme";
+import {useUser} from "~/db/useUser";
+import {marked} from "marked";
+import use = marked.use;
+import { Show } from 'solid-js';
+import {createServerData$} from "solid-start/server/index";
+import {getUser} from "~/db/session";
+
+
+
+
 
 
 export default function ServerHeader() {
 
+    const user = createServerData$(async (_, {request}) => {
+        const user = await getUser(request);
+        return user;
+    });
+
 
     return (
-        <div
-            class={classes.header_container}
-        >
+        <>
             <Header
                 logoSection={
                     <li>
@@ -59,12 +72,27 @@ export default function ServerHeader() {
                         >
                             <Button
                                 onClick={() => setIsDark(prev => !prev)}
-                            ><h3>toggle</h3></Button>
-                        </li>
+                            >
+                                <span>toggle</span>
+                            </Button>
+
+                        </li>,
+                            <Show when={user()}>
+                                <li>
+                                    <Button
+                                        href={'/'}
+                                        as={A}
+                                    >
+                                        <span>
+                                            {user()?.username}
+                                        </span>
+                                    </Button>
+                                </li>
+                            </Show>
 
                     ]
                 }
             />
-        </div>
+        </>
     );
 };
