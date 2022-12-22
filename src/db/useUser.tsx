@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { createServerData$, redirect } from "solid-start/server";
 import { getUser } from "./session";
+import { db } from ".";
 
 export const useUser = () =>
   createServerData$(async (_, { request }) => {
-    const db = new PrismaClient();
     const user = await getUser(db, request);
 
     if (!user) {

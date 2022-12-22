@@ -1,0 +1,37 @@
+@import '../../variables';
+
+.header_container {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  @include small_padding()
+}
+
+.logo_href {
+  all: unset;
+  cursor: pointer;
+}
+
+.right_header_section {
+  display: flex;
+  height: max-content;
+}
+
+.right_header_show {
+  display: none;
+}
+
+.image {
+  border-radius: 999px;
+  height: 30px;
+  width: 30px;
+  position: relative;
+}
+
+@media (max-width: 450px) {
+  .right_header_section {
+
+  }
+
+}

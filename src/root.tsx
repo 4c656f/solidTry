@@ -11,9 +11,15 @@ import {
   Scripts,
   Title,
 } from "solid-start";
-import "./root.css";
+import "./root.scss";
+import {isDark} from "~/sharedSignals/theme";
 
 export default function Root() {
+
+
+
+
+
   return (
     <Html lang="en">
       <Head>
@@ -21,7 +27,10 @@ export default function Root() {
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Body>
+      <Body
+          data-theme={isDark()?'dark':'light'}
+      >
+
         <ErrorBoundary>
           <Suspense fallback={<div>Loading</div>}>
             <Routes>
