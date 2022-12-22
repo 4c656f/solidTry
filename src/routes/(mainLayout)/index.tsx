@@ -10,9 +10,7 @@ import {isServer} from "solid-js/web";
 export function routeData(prop: RouteDataArgs) {
 
     console.log('index route fires')
-    return {
-        user: useUser(),
-    };
+    return useUser()
 }
 
 
@@ -21,15 +19,12 @@ const Home: Component = () => {
 
 
 
-    const {user} = useRouteData<typeof routeData>();
+    const user = useRouteData<typeof routeData>();
 
-    const [isShown, setIsShown] = createSignal(false)
 
-    createEffect(() => {
+    createEffect(()=>{
         console.log(user.loading)
-        setIsShown(prev => !prev)
     })
-
 
     return (
         <>
@@ -37,8 +32,9 @@ const Home: Component = () => {
                 href={'/some'}
             ><h1>home</h1></A>
             <Show
-                when={isShown() || isServer}
+                when={!user.loading || isServer}
                 fallback={<h1>loading...</h1>}
+                keyed
             >
                 <h1 class="font-bold text-3xl">Hello {user()?.username}</h1>
             </Show>
@@ -46,7 +42,7 @@ const Home: Component = () => {
             <h3 class="font-bold text-xl">Message board</h3>
             <button
                 onClick={() => {
-                    refetchRouteData()
+                    refetchRouteData(['user'])
                 }}
             >
                 Refresh

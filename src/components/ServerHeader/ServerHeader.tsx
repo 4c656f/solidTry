@@ -22,6 +22,7 @@ import {getUser} from "~/db/session";
 export default function ServerHeader() {
 
     const user = createServerData$(async (_, {request}) => {
+        console.log(request.url, 'serverHeader----')
         const user = await getUser(request);
         return user;
     });

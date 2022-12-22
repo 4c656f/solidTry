@@ -7,4 +7,6 @@ export const useUser = () =>
         const user = await getUser(request);
 
         return user;
+    },{
+        key: ['user']
     });
