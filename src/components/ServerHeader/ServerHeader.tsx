@@ -81,11 +81,33 @@ export default function ServerHeader() {
                             <Show when={user()}>
                                 <li>
                                     <Button
-                                        href={'/'}
+                                        href={'/account'}
                                         as={A}
                                     >
                                         <span>
                                             {user()?.username}
+                                        </span>
+                                    </Button>
+                                </li>
+                            </Show>,
+                            <Show when={!user()} >
+                                <li>
+                                    <Button
+                                        href={'/sign-in'}
+                                        as={A}
+                                    >
+                                        <span>
+                                            signIn
+                                        </span>
+                                    </Button>
+                                </li>
+                                <li>
+                                    <Button
+                                        href={'/sign-up'}
+                                        as={A}
+                                    >
+                                        <span>
+                                            signUp
                                         </span>
                                     </Button>
                                 </li>
