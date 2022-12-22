@@ -12,7 +12,7 @@ import {marked} from "marked";
 import use = marked.use;
 import { Show } from 'solid-js';
 import {createServerData$} from "solid-start/server/index";
-import {getUser} from "~/db/session";
+import {getUser, getUserId} from "~/db/session";
 
 
 
@@ -23,6 +23,9 @@ export default function ServerHeader() {
 
     const user = createServerData$(async (_, {request}) => {
         console.log(request.url, 'serverHeader----')
+
+        // const user = await getUserId(request)
+        // console.log(user)
         const user = await getUser(request);
         return user;
     });
@@ -69,7 +72,6 @@ export default function ServerHeader() {
 
                         [<li
                             class={classes.right_header_section}
-
                         >
                             <Button
                                 onClick={() => setIsDark(prev => !prev)}
@@ -85,7 +87,7 @@ export default function ServerHeader() {
                                         as={A}
                                     >
                                         <span>
-                                            {user()?.username}
+                                            {user()?.userName}
                                         </span>
                                     </Button>
                                 </li>

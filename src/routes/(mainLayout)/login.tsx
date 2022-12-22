@@ -65,10 +65,10 @@ export default function Login() {
             fields,
           });
         }
-        return createUserSession(`${user.id}`, redirectTo);
+        return createUserSession(user.id, redirectTo);
       }
       case "register": {
-        const userExists = await db.user.findUnique({ where: { username } });
+        const userExists = await db.user.findUnique({ where: { userName: username } });
         if (userExists) {
           throw new FormError(`User with username ${username} already exists`, {
             fields,
@@ -83,7 +83,7 @@ export default function Login() {
             }
           );
         }
-        return createUserSession(`${user.id}`, redirectTo);
+        return createUserSession(user.id, redirectTo);
       }
       default: {
         throw new FormError(`Login type invalid`, { fields });

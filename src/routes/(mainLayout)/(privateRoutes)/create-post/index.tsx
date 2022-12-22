@@ -62,7 +62,7 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
             if (Prism.languages[language]) {
                 codeHighlighted =  Prism.highlight(code, Prism.languages[language], language);
             }else{
-                import(`prismjs/components/prism-${language}`)
+                import(`prismjs/components/prism-${language}` /* @vite-ignore */)
                 codeHighlighted = Prism.highlight(code, Prism.languages.js, 'js');
             }
         }
