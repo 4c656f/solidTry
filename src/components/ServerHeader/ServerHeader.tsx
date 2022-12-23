@@ -10,6 +10,7 @@ import {setIsDark} from "~/sharedSignals/theme";
 import {useUser} from "~/db/useUser";
 import {marked} from "marked";
 import {createSignal, Show} from 'solid-js';
+import CustomImage from "~/components/ui/Image/CustomImage";
 
 
 export default function ServerHeader() {
@@ -68,14 +69,18 @@ export default function ServerHeader() {
                     </li>,
                         <Show when={user()?.user}>
                             <li>
-                                <Button
+                                <A
                                     href={'/account'}
-                                    as={A}
+                                    class={classes.image_link}
                                 >
-                                        <span>
-                                            {user()?.user?.userName}
-                                        </span>
-                                </Button>
+                                    <CustomImage
+                                        src={user()?.user?.userImage as string}
+                                        width={50}
+                                        height={50}
+                                        alt={`user picture`}
+                                        // className={classes.image}
+                                    />
+                                </A>
                             </li>
                         </Show>,
                         <Show when={!user()?.user}>
