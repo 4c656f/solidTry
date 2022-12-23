@@ -1,6 +1,6 @@
 import {A, refetchRouteData, RouteDataArgs, useRouteData} from "solid-start";
 
-import {useUser, useUserRep} from "../../db/useUser";
+import {useUser} from "../../db/useUser";
 import {Component, createEffect, For, Show} from "solid-js";
 import {isServer} from "solid-js/web";
 
@@ -30,7 +30,7 @@ const Home: Component = () => {
                 when={!user.loading || isServer}
                 fallback={<h1>loading...</h1>}
             >
-                <h1 class="font-bold text-3xl">Hello {user()?.user}</h1>
+                <h1 class="font-bold text-3xl">Hello {user()?.user?.userName}</h1>
             </Show>
 
             <h3 class="font-bold text-xl">Message board</h3>

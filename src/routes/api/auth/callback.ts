@@ -2,13 +2,13 @@ import type {APIEvent} from "solid-start/api";
 
 import url from 'node:url';
 import axios from "axios";
-import {createUserSession, requireUserId} from "~/db/session";
+import {createUserSession, requireUser} from "~/db/session";
 import {IGithubOauthResponse} from "~/types/IGithubOauthResponse";
 import {db} from "~/db";
 
 export async function GET({request}: APIEvent) {
 
-    const session = await requireUserId(request, '/', false)
+    const session = await requireUser(request, '/', false)
 
     const code = url.parse(request.url, true).query.code
 
@@ -42,5 +42,5 @@ export async function GET({request}: APIEvent) {
         }
     })
 
-    return createUserSession(`${user.id}`, '/')
+    return createUserSession(`${user.id}`,`${user.userName}`,`${user.image}`, '/')
 }

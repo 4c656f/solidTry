@@ -7,7 +7,7 @@ import classes from "./serverHeader.module.scss";
 import Button from "../ui/Button/Button";
 import {A} from 'solid-start';
 import {setIsDark} from "~/sharedSignals/theme";
-import {useUser, useUserRep} from "~/db/useUser";
+import {useUser} from "~/db/useUser";
 import {marked} from "marked";
 import {createSignal, Show} from 'solid-js';
 
@@ -73,7 +73,7 @@ export default function ServerHeader() {
                                     as={A}
                                 >
                                         <span>
-                                            {user()?.user}
+                                            {user()?.user?.userName}
                                         </span>
                                 </Button>
                             </li>

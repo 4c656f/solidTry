@@ -40,27 +40,30 @@ export const storage = createCookieSessionStorage({
     },
 });
 
-export async function getUserSession(request: Request) {
-    return await storage.getSession(request.headers.get("Cookie"));
+export function getUserSession(request: Request) {
+    return storage.getSession(request.headers.get("Cookie"));
 }
 
-export async function getUserId(request: Request) {
+export async function getUserFromSession(request: Request) {
     const session = await getUserSession(request);
     const userId = session.get("userId");
-    if (!userId || typeof userId !== "string") return null;
-    return userId;
+    const userName = session.get("userName") as string;
+    const userImage = session.get("userImage") as string;
+
+    if (!userId || !userName || !userImage || typeof userId !== "string") return null;
+
+    return {userId, userName, userImage};
 }
 
-export async function requireUserId(
+export async function requireUser(
     request: Request,
     redirectTo: string = new URL(request.url).pathname,
     isRequired: boolean
 ) {
 
-    const userId = await getUserId(request);
+    const userId = await getUserFromSession(request);
 
     if (!userId) {
-
         if (isRequired) {
             // const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
             throw redirect(redirectTo);
@@ -75,11 +78,12 @@ export async function requireUserId(
     return userId;
 }
 
-export async function getUser(request: Request) {
-    const userId = await getUserId(request);
+export async function getUserFromDb(request: Request) {
+    const userFromSession = await getUserFromSession(request);
 
     try {
-
+        const user = await db.user.findUnique({where: {id: Number(userFromSession?.userId)}});
+        return user;
     } catch {
         throw logout(request);
     }
@@ -94,9 +98,11 @@ export async function logout(request: Request) {
     });
 }
 
-export async function createUserSession(userId: string, redirectTo: string) {
+export async function createUserSession(userId: string, userName: string, userImage: string, redirectTo: string) {
     const session = await storage.getSession();
     session.set("userId", userId);
+    session.set("userName", userName);
+    session.set("userImage", userImage);
     return redirect(redirectTo, {
         headers: {
             "Set-Cookie": await storage.commitSession(session),
