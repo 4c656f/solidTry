@@ -2,8 +2,8 @@ import classes from "./Button.module.scss"
 import {IColorIndex} from "../../../types/IColorIndex";
 import {ButtonType} from "../../../types/IElementType";
 import {IElementsSize} from "../../../types/IElementsSize";
-import { Dynamic } from "solid-js/web";
-import { ElementType } from "@suid/types";
+import {Dynamic} from "solid-js/web";
+import {ElementType} from "@suid/types";
 import type {ComponentProps, JSX} from "solid-js";
 
 type ButtonCustomProps<E extends ElementType = ElementType> = {

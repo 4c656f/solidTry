@@ -1,15 +1,11 @@
 import {Component} from "solid-js";
 import {Outlet} from "solid-start";
 
-type LoginDisabledProps = {
+type LoginDisabledProps = {}
 
-}
+const LoginDisabled: Component<LoginDisabledProps> = (props: LoginDisabledProps) => {
 
-const LoginDisabled:Component<LoginDisabledProps> = (props:LoginDisabledProps) => {
-
-    const {
-
-    } = props
+    const {} = props
 
 
     return (

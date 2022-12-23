@@ -21,35 +21,35 @@ body {
 }
 
 //body {
-  //
-  //
-  //    --index_0_color: #000000;
-  //
-  //    --index_1_color: #131313;
-  //
-  //    --index_1_5_color: #1A1A1A;
-  //
-  //    --index_2_color: #1B1B1B;
-  //
-  //    --index_2_5_color: #1e1e1e;
-  //
-  //    --index_3_color: #383838;
-  //
-  //    --index_3_5_color: #383838;
-  //
-  //    --index_0_text: #D2D2D2;
-  //
-  //    --index_1_text: #9E9E9E;
-  //
-  //    --index_2_text: #5C5D66;
-  //
-  //    --index_primary_text: #0B6EF9;
-  //
-  //
-  //    background-color: var(--index_0_color);
-  //
-  //    width: 100%;
-  //}
+//
+//
+//    --index_0_color: #000000;
+//
+//    --index_1_color: #131313;
+//
+//    --index_1_5_color: #1A1A1A;
+//
+//    --index_2_color: #1B1B1B;
+//
+//    --index_2_5_color: #1e1e1e;
+//
+//    --index_3_color: #383838;
+//
+//    --index_3_5_color: #383838;
+//
+//    --index_0_text: #D2D2D2;
+//
+//    --index_1_text: #9E9E9E;
+//
+//    --index_2_text: #5C5D66;
+//
+//    --index_primary_text: #0B6EF9;
+//
+//
+//    background-color: var(--index_0_color);
+//
+//    width: 100%;
+//}
 
 
 body[data-theme='light'] {
@@ -127,8 +127,7 @@ body {
 }
 
 
-
-main{
+main {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -191,7 +190,7 @@ code {
 
 }
 
-.main_section{
+.main_section {
   width: 100%;
 }
 
@@ -203,16 +202,19 @@ main {
   grid-gap: 12px;
   @include small_padding($vertical: 12px)
 }
-ul{
+
+ul {
   list-style-type: none;
   text-decoration: none;
   @include default_h4();
 }
-li{
+
+li {
   text-decoration: none;
   @include default_h4();
 }
-nav{
+
+nav {
   text-decoration: none;
   @include default_h4();
 }

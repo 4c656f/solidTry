@@ -1,6 +1,6 @@
 import {IColorIndex} from "../../../types/IColorIndex";
 import classes from './textArea.module.scss'
-import type {ComponentProps, JSX} from 'solid-js'
+import type {ComponentProps} from 'solid-js'
 
 type TextAreaProps = {
     colorIndex?: IColorIndex;

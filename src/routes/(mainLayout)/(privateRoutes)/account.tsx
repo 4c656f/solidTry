@@ -3,17 +3,13 @@ import Button from "~/components/ui/Button/Button";
 import {logout} from "~/db/session";
 import {createServerAction$} from "solid-start/server/index";
 
-type AccountProps = {
+type AccountProps = {}
 
-}
+const Account: Component<AccountProps> = (props: AccountProps) => {
 
-const Account:Component<AccountProps> = (props:AccountProps) => {
+    const {} = props
 
-    const {
-
-    } = props
-
-    const [, { Form }] = createServerAction$(async (form:FormData,{request}) => logout(request))
+    const [, {Form}] = createServerAction$(async (form: FormData, {request}) => logout(request))
     return (
         <>
             <Form>

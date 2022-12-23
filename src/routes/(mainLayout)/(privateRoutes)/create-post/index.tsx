@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {Component, createEffect, createMemo, createSignal, onCleanup, onMount} from "solid-js";
+import React from 'react';
+import {Component, createEffect, createSignal, onCleanup, onMount} from "solid-js";
 import classes from './create-post.module.scss'
 import {marked, Renderer} from 'marked'
 import Prism from 'prismjs'
@@ -7,15 +7,11 @@ import 'prismjs/components/prism-typescript'
 import './codeTheme.scss'
 import TextArea from '~/components/ui/TextArea/TextArea';
 
-type IndexProps = {
+type IndexProps = {}
 
-}
+const Index: Component<IndexProps> = (props: IndexProps) => {
 
-const Index:Component<IndexProps> = (props:IndexProps) => {
-
-    const {
-
-    } = props
+    const {} = props
 
 
     const [textAreaValue, setTextAreaValue] = createSignal('# title1 \n' +
@@ -32,8 +28,6 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
         '')
 
 
-
-
     //RESIZER STATE
     const [isUp, setIsUp] = createSignal(false)
     //TEXTAREA STATE
@@ -42,32 +36,31 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
     const [textTitle, setTextTitle] = createSignal('')
 
     //CONTAINER REF
-    let dragContainerRef!:HTMLDivElement
+    let dragContainerRef!: HTMLDivElement
 
     //TEXTAREA REF
-    let textAreaRef!:HTMLTextAreaElement
-
+    let textAreaRef!: HTMLTextAreaElement
 
 
     const renderer = new Renderer();
 
     renderer.code = function (code, params) {
-        let codeHighlighted:string = ''
+        let codeHighlighted: string = ''
         let fileName
         let language
         const codeParams = params?.split(' ')
 
-        if(codeParams){
+        if (codeParams) {
             [language, fileName] = codeParams;
             if (Prism.languages[language]) {
-                codeHighlighted =  Prism.highlight(code, Prism.languages[language], language);
-            }else{
+                codeHighlighted = Prism.highlight(code, Prism.languages[language], language);
+            } else {
                 import(`prismjs/components/prism-${language}` /* @vite-ignore */)
                 codeHighlighted = Prism.highlight(code, Prism.languages.js, 'js');
             }
         }
 
-        return `<pre class="language-${language}">${fileName?`<span class="file_name">${fileName}</span>`:''}<code class="language-${language}">${codeHighlighted?codeHighlighted:code}</code></pre>`
+        return `<pre class="language-${language}">${fileName ? `<span class="file_name">${fileName}</span>` : ''}<code class="language-${language}">${codeHighlighted ? codeHighlighted : code}</code></pre>`
     }
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -79,20 +72,20 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
         dragContainerRef.style.width = `${e.targetTouches[0].pageX}px`
     }
 
-    onMount(()=>{
+    onMount(() => {
 
 
-        const mouseUpHandler = ()=>{
+        const mouseUpHandler = () => {
             setIsUp(false)
         }
-        document.addEventListener('mouseup',mouseUpHandler)
+        document.addEventListener('mouseup', mouseUpHandler)
 
-        onCleanup(()=>{
+        onCleanup(() => {
             document.removeEventListener('mouseup', mouseUpHandler)
         })
     })
 
-    createEffect(()=>{
+    createEffect(() => {
         const html = marked(textAreaValue(), {
             renderer: renderer,
         })
@@ -106,16 +99,11 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
             document.addEventListener('mousemove', handleMouseMove)
             document.addEventListener('touchmove', handleTouchMove)
         }
-        onCleanup(()=>{
+        onCleanup(() => {
             document.removeEventListener('mousemove', handleMouseMove)
             document.removeEventListener('touchmove', handleTouchMove)
         })
     })
-
-
-
-
-
 
 
     return (
@@ -170,6 +158,7 @@ const Index:Component<IndexProps> = (props:IndexProps) => {
 
             </div>
         </div>
-    )};
+    )
+};
 
 export default Index;

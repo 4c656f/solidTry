@@ -1,12 +1,26 @@
 import {createServerData$} from "solid-start/server";
-import {getUser} from "./session";
+import {getUser, getUserId, storage} from "./session";
 
-export const useUser = () =>
-    createServerData$(async (_, {request}) => {
+export const useUser = (key?: string) => createServerData$(async (_, {request}) => {
 
-        const user = await getUser(request);
 
-        return user;
-    },{
-        key: ['user']
-    });
+    const user = await getUserId(request);
+    return {
+        user: user
+    };
+
+}, {
+    key: [key],
+    reconcileOptions:{
+        merge:false
+    }
+});
+
+export const useUserRep = (key?: string) => createServerData$(async (_, {request}) => {
+    return {user: false};
+}, {
+    key: [key],
+    reconcileOptions:{
+        merge:false
+    }
+});

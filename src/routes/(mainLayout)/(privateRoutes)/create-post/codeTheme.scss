@@ -1,11 +1,7 @@
 @import "../../../../variables";
 
 
-
-
-
-
-pre{
+pre {
   display: block;
   overflow-x: auto;
   padding: 1em;
@@ -13,6 +9,7 @@ pre{
   border-radius: $border_radius;
   position: relative;
 }
+
 pre[class*="language-"],
 code[class*="language-"] {
   color: #d4d4d4;
@@ -34,7 +31,7 @@ code[class*="language-"] {
   hyphens: none;
 }
 
-.file_name{
+.file_name {
   background-color: var(--index_2_color);
   color: var(--index_1_text);
   position: absolute;
@@ -66,6 +63,7 @@ code[class*="language-"] {
   color: #db4c69;
   background: #1e1e1e;
 }
+
 /*********************************************************
 * Tokens
 */
@@ -247,6 +245,7 @@ code[class*="language-"] {
 .token.namespace {
   color: #4ec9b0;
 }
+
 /*********************************************************
 * Language Specific
 */
@@ -279,6 +278,7 @@ code[class*="language-html"] {
 .language-html .token.punctuation {
   color: #808080;
 }
+
 /*********************************************************
 * Line highlighting
 */

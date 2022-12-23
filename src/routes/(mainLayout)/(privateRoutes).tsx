@@ -1,18 +1,14 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Component} from "solid-js";
 import {Outlet} from "solid-start";
 
-type PrivateRoutesProps = {
+type PrivateRoutesProps = {}
 
-}
+const PrivateRoutes: Component<PrivateRoutesProps> = (props: PrivateRoutesProps) => {
 
-const PrivateRoutes:Component<PrivateRoutesProps> = (props:PrivateRoutesProps) => {
+    const {} = props
 
-    const {
-        
-    } = props
 
-    
     return (
         <>
             <Outlet/>

@@ -8,7 +8,7 @@ import {db} from "~/db";
 
 export async function GET({request}: APIEvent) {
 
-    // const session = await requireUserId(request, '/', false)
+    const session = await requireUserId(request, '/', false)
 
     const code = url.parse(request.url, true).query.code
 
@@ -29,13 +29,13 @@ export async function GET({request}: APIEvent) {
             Authorization: `Bearer ${token.data.access_token}`
         }
     })
-    console.log(data)
+    // console.log(data)
     const user = await db.user.upsert({
-        where:{
+        where: {
             userName: data.login
         },
-        update:{},
-        create:{
+        update: {},
+        create: {
             email: data.email,
             userName: data.login,
             image: data.avatar_url

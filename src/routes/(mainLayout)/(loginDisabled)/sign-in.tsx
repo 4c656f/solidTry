@@ -4,17 +4,13 @@ import Button from "~/components/ui/Button/Button";
 import {redirect} from "solid-start/server";
 
 
-type SignInProps = {
+type SignInProps = {}
 
-}
+const SignIn: Component<SignInProps> = (props: SignInProps) => {
 
-const SignIn:Component<SignInProps> = (props:SignInProps) => {
+    const {} = props
 
-    const {
-
-    } = props
-
-    const [loggingIn, { Form }] = createServerAction$(async (form:FormData) => {
+    const [loggingIn, {Form}] = createServerAction$(async (form: FormData) => {
         return redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`)
     })
 

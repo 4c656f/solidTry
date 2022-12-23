@@ -1,24 +1,20 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Component} from "solid-js";
 import {Outlet, RouteDataArgs} from "solid-start";
-import server$ from 'solid-start/server';
 import ServerHeader from "~/components/ServerHeader/ServerHeader";
-import {useUser} from "~/db/useUser";
-import {createServerData$} from "solid-start/server/index";
+import {useUser, useUserRep} from "~/db/useUser";
 
-type MainLayoutProps = {
+type MainLayoutProps = {}
 
-}
+// export function routeData(prop: RouteDataArgs) {
+//
+//     console.log('index route fires')
+//     return ()=> useUserRep('random123')
+// }
 
+const MainLayout: Component<MainLayoutProps> = (props: MainLayoutProps) => {
 
-
-const MainLayout:Component<MainLayoutProps> = (props:MainLayoutProps) => {
-
-    const {
-
-    } = props
-
-
+    const {} = props
 
 
     return (

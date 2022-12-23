@@ -1,14 +1,10 @@
 import {Component} from "solid-js";
 
-type SignUpProps = {
+type SignUpProps = {}
 
-}
+const SignUp: Component<SignUpProps> = (props: SignUpProps) => {
 
-const SignUp:Component<SignUpProps> = (props:SignUpProps) => {
-
-    const {
-
-    } = props
+    const {} = props
 
 
     return (

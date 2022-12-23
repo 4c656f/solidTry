@@ -1,4 +1,4 @@
-import { createSignal, createMemo, Index } from "solid-js";
+import {createMemo, createSignal, Index} from "solid-js";
 
 import "./grid.css";
 
@@ -15,7 +15,7 @@ function clampGridSideLength(newSideLength: number): number {
 const EtchASketch = () => {
     const [gridSideLength, setGridSideLength] = createSignal(10);
     const gridTemplateString = createMemo((prev) => {
-        console.log('memo', prev)
+            console.log('memo', prev)
             return `repeat(${gridSideLength()}, ${maxGridPixelWidth / gridSideLength()}px)`
         }
     );
@@ -42,7 +42,7 @@ const EtchASketch = () => {
                 }}
             >
                 <Index
-                    each={Array.from({ length: gridSideLength() ** 2 })}
+                    each={Array.from({length: gridSideLength() ** 2})}
                     fallback={"Input a grid side length."}
                 >
                     {() => (

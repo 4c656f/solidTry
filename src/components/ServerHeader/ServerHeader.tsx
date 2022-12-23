@@ -7,28 +7,14 @@ import classes from "./serverHeader.module.scss";
 import Button from "../ui/Button/Button";
 import {A} from 'solid-start';
 import {setIsDark} from "~/sharedSignals/theme";
-import {useUser} from "~/db/useUser";
+import {useUser, useUserRep} from "~/db/useUser";
 import {marked} from "marked";
-import use = marked.use;
-import { Show } from 'solid-js';
-import {createServerData$} from "solid-start/server/index";
-import {getUser, getUserId} from "~/db/session";
-
-
-
-
+import {createSignal, Show} from 'solid-js';
 
 
 export default function ServerHeader() {
 
-    const user = createServerData$(async (_, {request}) => {
-        console.log(request.url, 'serverHeader----')
-
-        // const user = await getUserId(request)
-        // console.log(user)
-        const user = await getUser(request);
-        return user;
-    });
+    const user =  useUser('someRandom2')
 
 
     return (
@@ -70,50 +56,50 @@ export default function ServerHeader() {
                     ]}
                 rightSection={
 
-                        [<li
-                            class={classes.right_header_section}
+                    [<li
+                        class={classes.right_header_section}
+                    >
+                        <Button
+                            onClick={() => setIsDark(prev => !prev)}
                         >
-                            <Button
-                                onClick={() => setIsDark(prev => !prev)}
-                            >
-                                <span>toggle</span>
-                            </Button>
+                            <span>toggle</span>
+                        </Button>
 
-                        </li>,
-                            <Show when={user()}>
-                                <li>
-                                    <Button
-                                        href={'/account'}
-                                        as={A}
-                                    >
+                    </li>,
+                        <Show when={user()?.user}>
+                            <li>
+                                <Button
+                                    href={'/account'}
+                                    as={A}
+                                >
                                         <span>
-                                            {user()?.userName}
+                                            {user()?.user}
                                         </span>
-                                    </Button>
-                                </li>
-                            </Show>,
-                            <Show when={!user()} >
-                                <li>
-                                    <Button
-                                        href={'/sign-in'}
-                                        as={A}
-                                    >
+                                </Button>
+                            </li>
+                        </Show>,
+                        <Show when={!user()?.user}>
+                            <li>
+                                <Button
+                                    href={'/sign-in'}
+                                    as={A}
+                                >
                                         <span>
                                             signIn
                                         </span>
-                                    </Button>
-                                </li>
-                                <li>
-                                    <Button
-                                        href={'/sign-up'}
-                                        as={A}
-                                    >
+                                </Button>
+                            </li>
+                            <li>
+                                <Button
+                                    href={'/sign-up'}
+                                    as={A}
+                                >
                                         <span>
                                             signUp
                                         </span>
-                                    </Button>
-                                </li>
-                            </Show>
+                                </Button>
+                            </li>
+                        </Show>
 
                     ]
                 }

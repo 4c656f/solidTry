@@ -1,16 +1,12 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {Component} from "solid-js";
-import { A } from 'solid-start';
+import {A} from 'solid-start';
 
-type SomeProps = {
+type SomeProps = {}
 
-}
+const Some: Component<SomeProps> = (props: SomeProps) => {
 
-const Some:Component<SomeProps> = (props:SomeProps) => {
-
-    const {
-
-    } = props
+    const {} = props
 
 
     return (

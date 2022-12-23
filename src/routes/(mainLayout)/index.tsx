@@ -1,28 +1,23 @@
 import {A, refetchRouteData, RouteDataArgs, useRouteData} from "solid-start";
-import {createServerData$} from "solid-start/server";
 
-import {useUser} from "../../db/useUser";
-import {Component, createEffect, createSignal, For, Show} from "solid-js";
-import {db} from "~/db";
-import {createStore} from "solid-js/store";
+import {useUser, useUserRep} from "../../db/useUser";
+import {Component, createEffect, For, Show} from "solid-js";
 import {isServer} from "solid-js/web";
 
 export function routeData(prop: RouteDataArgs) {
 
     console.log('index route fires')
-    return useUser()
+    return useUser('random123')
 }
 
 
 const Home: Component = () => {
 
 
-
-
     const user = useRouteData<typeof routeData>();
 
 
-    createEffect(()=>{
+    createEffect(() => {
         console.log(user.loading)
     })
 
@@ -34,15 +29,14 @@ const Home: Component = () => {
             <Show
                 when={!user.loading || isServer}
                 fallback={<h1>loading...</h1>}
-                keyed
             >
-                <h1 class="font-bold text-3xl">Hello {user()?.userName}</h1>
+                <h1 class="font-bold text-3xl">Hello {user()?.user}</h1>
             </Show>
 
             <h3 class="font-bold text-xl">Message board</h3>
             <button
                 onClick={() => {
-                    refetchRouteData(['user'])
+                    refetchRouteData(['random123'])
                 }}
             >
                 Refresh
@@ -54,10 +48,10 @@ const Home: Component = () => {
                 fallback={<h1>loading...</h1>}
             >
                 <For
-                    each={['1','2',3]}
+                    each={['1', '2', 3]}
                 >
-                    {(element)=>{
-                        return(
+                    {(element) => {
+                        return (
                             <div>
                                 <h1>{element}</h1>
                             </div>
@@ -65,7 +59,6 @@ const Home: Component = () => {
                     }}
                 </For>
             </Show>
-
 
 
         </>
