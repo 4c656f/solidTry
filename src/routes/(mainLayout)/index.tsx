@@ -1,13 +1,12 @@
 import {A, refetchRouteData, RouteDataArgs, useRouteData} from "solid-start";
-
 import {useUser} from "../../db/useUser";
-import {Component, createEffect, For, Show} from "solid-js";
+import {Component, createEffect, For, Show, useContext} from "solid-js";
 import {isServer} from "solid-js/web";
+import {UserContext} from "~/components/UserContext/UserContext";
 
 export function routeData(prop: RouteDataArgs) {
-
     console.log('index route fires')
-    return useUser('random123')
+    return useUser('random1')
 }
 
 
@@ -20,6 +19,9 @@ const Home: Component = () => {
     createEffect(() => {
         console.log(user.loading)
     })
+    const userContext = useContext(UserContext)
+
+
 
     return (
         <>
@@ -36,10 +38,18 @@ const Home: Component = () => {
             <h3 class="font-bold text-xl">Message board</h3>
             <button
                 onClick={() => {
-                    refetchRouteData(['random123'])
+                    refetchRouteData()
                 }}
             >
                 Refresh
+
+            </button>
+            <button
+                onClick={() => {
+                    refetchRouteData(['random1234'])
+                }}
+            >
+                RefreshIndex
 
             </button>
 
@@ -48,7 +58,7 @@ const Home: Component = () => {
                 fallback={<h1>loading...</h1>}
             >
                 <For
-                    each={['1', '2', 3]}
+                    each={['1', '2', '3']}
                 >
                     {(element) => {
                         return (

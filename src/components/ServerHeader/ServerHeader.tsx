@@ -9,13 +9,14 @@ import {A} from 'solid-start';
 import {setIsDark} from "~/sharedSignals/theme";
 import {useUser} from "~/db/useUser";
 import {marked} from "marked";
-import {createSignal, Show} from 'solid-js';
+import {createSignal, Show, useContext} from 'solid-js';
 import CustomImage from "~/components/ui/Image/CustomImage";
+import {UserContext} from "~/components/UserContext/UserContext";
 
 
 export default function ServerHeader() {
 
-    const user =  useUser('someRandom2')
+    const user = useContext(UserContext)
 
 
     return (
@@ -67,14 +68,14 @@ export default function ServerHeader() {
                         </Button>
 
                     </li>,
-                        <Show when={user()?.user}>
+                        <Show when={user?.()?.user}>
                             <li>
                                 <A
                                     href={'/account'}
                                     class={classes.image_link}
                                 >
                                     <CustomImage
-                                        src={user()?.user?.userImage as string}
+                                        src={user?.()?.user?.userImage as string}
                                         width={50}
                                         height={50}
                                         alt={`user picture`}
@@ -83,7 +84,7 @@ export default function ServerHeader() {
                                 </A>
                             </li>
                         </Show>,
-                        <Show when={!user()?.user}>
+                        <Show when={!user?.()?.user}>
                             <li>
                                 <Button
                                     href={'/sign-in'}

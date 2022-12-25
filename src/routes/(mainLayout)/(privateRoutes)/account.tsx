@@ -2,6 +2,7 @@ import type {Component} from "solid-js";
 import Button from "~/components/ui/Button/Button";
 import {logout} from "~/db/session";
 import {createServerAction$} from "solid-start/server/index";
+import {refetchRouteData} from "solid-start";
 
 type AccountProps = {}
 
@@ -19,7 +20,13 @@ const Account: Component<AccountProps> = (props: AccountProps) => {
                     <h1>logout</h1>
                 </Button>
             </Form>
-
+            <Button
+                onClick={()=> {
+                    refetchRouteData()
+                }}
+            >
+                refresh
+            </Button>
         </>
     );
 };
