@@ -7,9 +7,7 @@ import classes from "./serverHeader.module.scss";
 import Button from "../ui/Button/Button";
 import {A} from 'solid-start';
 import {setIsDark} from "~/sharedSignals/theme";
-import {useUser} from "~/db/useUser";
-import {marked} from "marked";
-import {createSignal, Show, useContext} from 'solid-js';
+import {createEffect, Show, useContext} from 'solid-js';
 import CustomImage from "~/components/ui/Image/CustomImage";
 import {UserContext} from "~/components/UserContext/UserContext";
 
@@ -18,6 +16,9 @@ export default function ServerHeader() {
 
     const user = useContext(UserContext)
 
+    createEffect(() => {
+        console.log(user.resource?.loading, 'header----')
+    })
 
     return (
         <>
@@ -68,14 +69,14 @@ export default function ServerHeader() {
                         </Button>
 
                     </li>,
-                        <Show when={user?.()?.user}>
+                        <Show when={user.data?.user}>
                             <li>
                                 <A
                                     href={'/account'}
                                     class={classes.image_link}
                                 >
                                     <CustomImage
-                                        src={user?.()?.user?.userImage as string}
+                                        src={user.data?.user?.userImage as string}
                                         width={50}
                                         height={50}
                                         alt={`user picture`}
@@ -84,7 +85,8 @@ export default function ServerHeader() {
                                 </A>
                             </li>
                         </Show>,
-                        <Show when={!user?.()?.user}>
+
+                        <Show when={!user.data?.user}>
                             <li>
                                 <Button
                                     href={'/sign-in'}

@@ -23,6 +23,7 @@ export async function GET({request}: APIEvent) {
                 Accept: "application/json"
             }
         })
+    // console.log(token.data)
 
     const {data} = await axios.get<IGithubOauthResponse>('https://api.github.com/user', {
         headers: {

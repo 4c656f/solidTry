@@ -4,6 +4,7 @@ import {Component, createEffect, For, Show, useContext} from "solid-js";
 import {isServer} from "solid-js/web";
 import {UserContext} from "~/components/UserContext/UserContext";
 
+
 export function routeData(prop: RouteDataArgs) {
     console.log('index route fires')
     return useUser('random1')
