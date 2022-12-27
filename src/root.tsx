@@ -1,8 +1,9 @@
 // @refresh reload
-import {Suspense} from "solid-js";
+import {Show, Suspense} from "solid-js";
 import {
     Body,
     ErrorBoundary,
+    ErrorMessage,
     FileRoutes,
     Head,
     Html,
@@ -15,7 +16,8 @@ import {
 } from "solid-start";
 import "./root.scss";
 import {isDark} from "~/sharedSignals/theme";
-import {useUser} from "~/db/useUser";
+import {useUser$} from "~/serverCallers/useUser$";
+import { HttpStatusCode } from "solid-start/server";
 
 
 
@@ -36,7 +38,9 @@ export default function Root() {
                 data-theme={isDark() ? 'dark' : 'light'}
             >
 
-                <ErrorBoundary>
+                <ErrorBoundary
+
+                >
                     <Suspense fallback={<div>Loading</div>}>
                         <Routes>
                             <FileRoutes/>

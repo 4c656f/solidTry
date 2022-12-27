@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component, createEffect} from "solid-js";
 import {Outlet, RouteDataArgs, useRouteData} from "solid-start";
-import {useUser} from "~/db/useUser";
+import {useUser$} from "~/serverCallers/useUser$";
 import {createServerData$} from "solid-start/server";
 import {requireUser} from "~/db/session";
 

@@ -33,7 +33,7 @@ export async function GET({request}: APIEvent) {
     // console.log(data)
     const user = await db.user.upsert({
         where: {
-            userName: data.login
+            email: data.email
         },
         update: {},
         create: {

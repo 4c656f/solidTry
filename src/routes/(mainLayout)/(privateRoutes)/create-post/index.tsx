@@ -1,5 +1,5 @@
 import React from 'react';
-import {Component, createEffect, createSignal, onCleanup, onMount} from "solid-js";
+import {Component, createEffect, createMemo, createSignal, onCleanup, onMount} from "solid-js";
 import classes from './create-post.module.scss'
 import {marked, Renderer} from 'marked'
 import Prism from 'prismjs'
@@ -30,8 +30,6 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
     //RESIZER STATE
     const [isUp, setIsUp] = createSignal(false)
-    //TEXTAREA STATE
-    const [textAreaValueHtml, setTextAreaValueHtml] = createSignal('')
 
     const [textTitle, setTextTitle] = createSignal('')
 
@@ -85,13 +83,7 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
         })
     })
 
-    createEffect(() => {
-        const html = marked(textAreaValue(), {
-            renderer: renderer,
-        })
-        setTextAreaValueHtml(html)
 
-    })
 
     createEffect(() => {
         console.log('resize event', isUp())
@@ -105,6 +97,11 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
         })
     })
 
+    const textAreaHtmlMemo = createMemo(()=>{
+        return marked(textAreaValue(), {
+            renderer: renderer,
+        })
+    })
 
     return (
         <div
@@ -152,8 +149,9 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
                 <div
                     class={classes.editor_container_item_md}
-                    innerHTML={textAreaValueHtml()}
+                    innerHTML={textAreaHtmlMemo()}
                 />
+
 
 
             </div>

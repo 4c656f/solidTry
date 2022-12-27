@@ -2,7 +2,7 @@ import React from 'react';
 import {Component, createEffect} from "solid-js";
 import {Outlet, refetchRouteData, RouteDataArgs, useRouteData} from "solid-start";
 import ServerHeader from "~/components/ServerHeader/ServerHeader";
-import {useUser} from "~/db/useUser";
+import {useUser$} from "~/serverCallers/useUser$";
 import {UserContextProvider} from "~/components/UserContext/UserContext";
 
 
@@ -10,7 +10,7 @@ type MainLayoutProps = {}
 
 
 export function routeData(prop: RouteDataArgs) {
-    return useUser('mainLayout')
+    return useUser$('mainLayout')
 }
 
 const MainLayout: Component<MainLayoutProps> = (props: MainLayoutProps) => {
@@ -20,9 +20,7 @@ const MainLayout: Component<MainLayoutProps> = (props: MainLayoutProps) => {
     const user = useRouteData<typeof routeData>();
 
 
-    createEffect(() => {
-        console.log('main---', user.loading)
-    })
+
 
 
     return (
