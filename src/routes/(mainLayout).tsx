@@ -33,12 +33,12 @@ const MainLayout: Component<MainLayoutProps> = (props: MainLayoutProps) => {
                 >
                     <Outlet/>
                 </section>
-                <button
-                    onClick={() => {
-                        refetchRouteData('mainLayout')
-                    }}
-                >refetchLayout
-                </button>
+                {/*<button*/}
+                {/*    onClick={() => {*/}
+                {/*        refetchRouteData('mainLayout')*/}
+                {/*    }}*/}
+                {/*>refetchLayout*/}
+                {/*</button>*/}
 
             </UserContextProvider>
 

@@ -1,13 +1,12 @@
-import {A, refetchRouteData} from "solid-start";
-import {Component, createEffect, createMemo, createSignal, For, Show, Suspense} from "solid-js";
+import {A} from "solid-start";
+import {Component, createEffect, createSignal, For, Show} from "solid-js";
 import {createServerData$} from "solid-start/server";
 import {db} from "~/db";
-import Button from "~/components/ui/Button/Button";
-import { User } from "@prisma/client";
-import {isServer} from "solid-js/web";
 import classes from './index.module.scss'
-
-type IFeedPost = {author: User, title: string, link: string, id: number, _count: {comments: number, likes: number}}
+import {unwrap} from "solid-js/store";
+import {safeUserSelect} from "~/common/prisma/selectors";
+import {IFeedPost} from "~/types/IFeedPost";
+import CustomImage from "~/components/ui/Image/CustomImage";
 
 
 const Home: Component = () => {
@@ -18,17 +17,17 @@ const Home: Component = () => {
 
     const [page, setPage] = createSignal(10)
 
-    const [posts, setPosts] = createSignal<null| IFeedPost[]>(null)
+    const [posts, setPosts] = createSignal<null | IFeedPost[]>(null)
 
 
+    const data = createServerData$(async ([, page]: [string, number], {request}) => {
 
-    const data = createServerData$(async ([, page]:[string, number], {request}) => {
-
-        console.log(page)
 
         const postsFromPrisma = await db.post.findMany({
             select: {
-                author: true,
+                author: {
+                    select: safeUserSelect
+                },
                 title: true,
                 link: true,
                 id: true,
@@ -39,52 +38,51 @@ const Home: Component = () => {
                     }
                 },
             },
-            take: page,
-            skip: page-10
+            orderBy: {id: 'asc'},
+            take: 10,
+            skip: page - 10
         })
+
+
         return postsFromPrisma
     }, {
-        key: ()=> ['posts', page()] as [string, number]
+        key: () => ['posts', page()] as [string, number]
     })
 
-    if(data.state === 'ready')setPosts([...data()!])
-
-    createEffect(()=>{
+    createEffect(() => {
         if (observerRef) observerRef.disconnect();
         if (data.loading || !data() || data()!.length < 1) return;
         const observerRefCallback = (entries: any[]) => {
 
             if (entries[0].isIntersecting) {
                 console.log('intersecting')
-                setPage(prev => prev+10)
+                setPage(prev => prev + 10)
             }
 
         }
         observerRef = new IntersectionObserver(observerRefCallback)
         observerRef.observe(elemRef)
     })
-    createEffect(()=>{
-        console.log(page(), '----increase')
-    })
-
 
 
     createEffect(() => {
-        if(data.state === 'ready') {
+        if (data.state === 'ready') {
             setPosts(prev => {
-                console.log('setPosts', prev, data(), data.state)
-                if(!data())return prev
-                if (!prev) return [...data()!]
+                // console.log('setPosts', prev, unwrap(data())![0], data.state)
+                if (!data()) return prev
+                if (!prev) return [...unwrap(data())!]
 
-                return [...prev, ...data()!]
+                return [...prev, ...unwrap(data())!]
             })
         }
     })
-    createEffect(()=>{
-        console.log(posts())
+
+    createEffect(() => {
+        console.log(posts(), 'postschanged----')
     })
 
     data()
+
     return (
         <div
             class={classes.container}
@@ -93,6 +91,15 @@ const Home: Component = () => {
                 {(item, index) => (
                     <article>
                         <A href={`/post/${item.link}`}><h1>{item.title}</h1></A>
+
+                        <CustomImage
+                            /*@ts-ignore*/
+                            src={item.author.image}
+                            className={classes.image}
+                            width={50}
+                            height={50}
+                            alt={`${item.author.userName} picture`
+                            }/>
                     </article>
                 )}
             </For>
@@ -100,16 +107,11 @@ const Home: Component = () => {
             <Show when={data.loading}>
                 <h1>loading</h1>
             </Show>
-            <Button
-                onClick={() => refetchRouteData('posts')}
-            >refetech</Button>
+            <Show when={!data.loading && data()!.length < 1}>
+                <span>that all</span>
+            </Show>
             <div
                 ref={elemRef!}
-                style={{
-                    height: '10px',
-                    width: '10px',
-                    "background-color": "red"
-                }}
             />
         </div>
     );

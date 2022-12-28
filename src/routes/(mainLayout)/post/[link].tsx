@@ -5,6 +5,7 @@ import {useUser$} from "~/serverCallers/useUser$";
 import {useRouteData} from "solid-start";
 import {createServerData$, redirect, ServerError} from "solid-start/server";
 import {db} from "~/db";
+import {safeUserSelect} from "~/common/prisma/selectors";
 
 type PostProps = {
 
@@ -18,6 +19,9 @@ export function routeData(prop: RouteDataArgs) {
                 link: link
             },
             include: {
+                author:{
+                    select: safeUserSelect
+                },
                 _count: {
                     select: {
                         comments: true,

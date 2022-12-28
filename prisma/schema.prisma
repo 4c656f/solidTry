@@ -78,9 +78,8 @@ model User {
   password      String?
   emailVerified DateTime?
 
-  image         String? @default("images/defaultAvatar.png")
+  image         String @default("images/defaultAvatar.png")
   accounts      Account[]
-  sessions      Session[]
   posts Post[]
   comments PostComment[]
   likes PostLike[]

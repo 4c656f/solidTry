@@ -28,9 +28,8 @@ const CustomImage:Component<ImageProps> = (props:ImageProps) => {
     onMount(()=>{
         const img = new Image(width, height)
         img.src = src
-        console.log('loadStart')
+
         img.onload = ()=> {
-            console.log('loaded')
             setIsLoaded(true)
         }
     })

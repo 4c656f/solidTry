@@ -16,9 +16,9 @@ export default function ServerHeader() {
 
     const user = useContext(UserContext)
 
-    createEffect(() => {
-        console.log(user.resource?.loading, 'header----')
-    })
+    // createEffect(() => {
+    //     console.log(user.resource?.loading, 'header----')
+    // })
 
     return (
         <>
