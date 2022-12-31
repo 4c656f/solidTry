@@ -3,8 +3,9 @@ import type {APIEvent} from "solid-start/api";
 import url from 'node:url';
 import axios from "axios";
 import {createUserSession, requireUser} from "~/db/session";
-import {IGithubOauthResponse} from "~/types/IGithubOauthResponse";
+import {IEmailsGithubResponse, IGithubOauthResponse} from "~/types/IGithubOauthResponse";
 import {db} from "~/db";
+import {validateHeaderName} from "http";
 
 export async function GET({request}: APIEvent) {
 
@@ -30,14 +31,20 @@ export async function GET({request}: APIEvent) {
             Authorization: `Bearer ${token.data.access_token}`
         }
     })
-    // console.log(data)
+    const emailReq = await axios.get<IEmailsGithubResponse[]>('https://api.github.com/user/emails', {
+        headers: {
+            Authorization: `token ${token.data.access_token}`
+        }
+    })
+    const email:string  = emailReq.data.find(value=>value.primary)!.email
+    // console.log(email)
     const user = await db.user.upsert({
         where: {
-            email: data.email
+            email: email
         },
         update: {},
         create: {
-            email: data.email,
+            email: email,
             userName: data.login,
             image: data.avatar_url
         }

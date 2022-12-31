@@ -46,3 +46,10 @@ export interface Plan {
     collaborators: number
     private_repos: number
 }
+
+export type IEmailsGithubResponse = {
+    email: string,
+    primary: boolean,
+    verified: boolean,
+    visibility: 'private'| null
+}

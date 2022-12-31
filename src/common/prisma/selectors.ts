@@ -7,3 +7,4 @@ export const safeUserSelect /*:ISafeUserSelect*/ = {
     userName: true,
     image: true
 }
+

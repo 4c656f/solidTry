@@ -7,6 +7,8 @@ import {unwrap} from "solid-js/store";
 import {safeUserSelect} from "~/common/prisma/selectors";
 import {IFeedPost} from "~/types/IFeedPost";
 import CustomImage from "~/components/ui/Image/CustomImage";
+import {getPosts, IGetPosts} from "~/common/prisma/rawQueries";
+import {getUserFromSession} from "~/db/session";
 
 
 const Home: Component = () => {
@@ -15,34 +17,26 @@ const Home: Component = () => {
 
     let observerRef: IntersectionObserver
 
-    const [page, setPage] = createSignal(10)
+    const [page, setPage] = createSignal(0)
 
-    const [posts, setPosts] = createSignal<null | IFeedPost[]>(null)
-
-
-    const data = createServerData$(async ([, page]: [string, number], {request}) => {
+    const [posts, setPosts] = createSignal<null | IGetPosts[]>(null)
 
 
-        const postsFromPrisma = await db.post.findMany({
-            select: {
-                author: {
-                    select: safeUserSelect
-                },
-                title: true,
-                link: true,
-                id: true,
-                _count: {
-                    select: {
-                        comments: true,
-                        likes: true
-                    }
-                },
-            },
-            orderBy: {id: 'asc'},
-            take: 10,
-            skip: page - 10
+    const postsFromServer = createServerData$(async ([, page]: [string, number], {request}) => {
+
+
+        const user = await getUserFromSession(request)
+
+        const query = getPosts({
+            userId: Number(user?.userId),
+            skip: page,
+            take: 10
         })
 
+        console.log(query)
+        const postsFromPrisma:IGetPosts[] = await db.$queryRawUnsafe(query)
+
+        // console.log(postsFromPrisma)
 
         return postsFromPrisma
     }, {
@@ -51,7 +45,7 @@ const Home: Component = () => {
 
     createEffect(() => {
         if (observerRef) observerRef.disconnect();
-        if (data.loading || !data() || data()!.length < 1) return;
+        if (postsFromServer.loading || !postsFromServer() || postsFromServer()!.length < 1) return;
         const observerRefCallback = (entries: any[]) => {
 
             if (entries[0].isIntersecting) {
@@ -66,13 +60,13 @@ const Home: Component = () => {
 
 
     createEffect(() => {
-        if (data.state === 'ready') {
+        if (postsFromServer.state === 'ready') {
             setPosts(prev => {
-                // console.log('setPosts', prev, unwrap(data())![0], data.state)
-                if (!data()) return prev
-                if (!prev) return [...unwrap(data())!]
+                // console.log('setPosts', prev, unwrap(postsFromServer())![0], postsFromServer.state)
+                if (!postsFromServer()) return prev
+                if (!prev) return [...unwrap(postsFromServer())!]
 
-                return [...prev, ...unwrap(data())!]
+                return [...prev, ...unwrap(postsFromServer())!]
             })
         }
     })
@@ -81,7 +75,7 @@ const Home: Component = () => {
         console.log(posts(), 'postschanged----')
     })
 
-    data()
+    postsFromServer()
 
     return (
         <div
@@ -90,24 +84,20 @@ const Home: Component = () => {
             <For each={posts()} fallback={null}>
                 {(item, index) => (
                     <article>
-                        <A href={`/post/${item.link}`}><h1>{item.title}</h1></A>
+                        <A href={`/post/${item.link}`}>
+                            <h1>{item.title}</h1>
+                        </A>
+                        <h1>{item.likeInitial}</h1>
 
-                        <CustomImage
-                            /*@ts-ignore*/
-                            src={item.author.image}
-                            className={classes.image}
-                            width={50}
-                            height={50}
-                            alt={`${item.author.userName} picture`
-                            }/>
+
                     </article>
                 )}
             </For>
 
-            <Show when={data.loading}>
+            <Show when={postsFromServer.loading}>
                 <h1>loading</h1>
             </Show>
-            <Show when={!data.loading && data()!.length < 1}>
+            <Show when={!postsFromServer.loading && postsFromServer()!.length < 1}>
                 <span>that all</span>
             </Show>
             <div
