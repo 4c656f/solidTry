@@ -54,7 +54,11 @@ export async function getUserFromSession(request: Request) {
 
     return {userId, userName, userImage};
 }
-
+export async function requireUser(
+    request: Request,
+    redirectTo: string,
+    isRequired: true
+):Promise<{userId: string, userName: string, userImage: string}>
 export async function requireUser(
     request: Request,
     redirectTo: string = new URL(request.url).pathname,
@@ -72,7 +76,6 @@ export async function requireUser(
         }
     }
     if (!isRequired) {
-
         throw redirect(redirectTo);
     }
     return userId;

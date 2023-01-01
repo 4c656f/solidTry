@@ -8,10 +8,11 @@
     "jsxImportSource": "solid-js",
     "jsx": "preserve",
     "strict": true,
-    "types": ["vite/client"],
+    "types": ["vite/client", "vite-plugin-solid-svg/types"],
     "baseUrl": "./",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+
   }
 }

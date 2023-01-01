@@ -34,6 +34,7 @@ model PostLike{
     authorId Int
     author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
+    @@unique([authorId, postId])
 
 }
 model PostComment{

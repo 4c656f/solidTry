@@ -4,7 +4,7 @@
     "dev": "solid-start dev",
     "build": "solid-start build",
     "start": "solid-start start",
-    "seed":"esbuild prisma/seed.ts --outfile=node_modules/tmp-seed.cjs --bundle --format=cjs --external:prisma --external:@prisma/client && node node_modules/tmp-seed.cjs --preview-feature"
+    "seed": "esbuild prisma/seed.ts --outfile=node_modules/tmp-seed.cjs --bundle --format=cjs --external:prisma --external:@prisma/client && node node_modules/tmp-seed.cjs --preview-feature"
   },
   "type": "module",
   "devDependencies": {
@@ -19,7 +19,8 @@
     "solid-start-node": "^0.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
-    "vite": "^3.1.8"
+    "vite": "^3.1.8",
+    "vite-plugin-solid-svg": "^0.6.0"
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",

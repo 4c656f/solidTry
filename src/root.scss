@@ -1,8 +1,7 @@
 @import './variables';
 
 body {
-  font-family: Gordita, Roboto, Oxygen, Ubuntu, Cantarell,
-  'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: BasierCircle, sans-serif;
 }
 
 
@@ -12,6 +11,8 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  color: var(--index_0_text);
+  stroke: var(--index_0_text)
 }
 
 body {

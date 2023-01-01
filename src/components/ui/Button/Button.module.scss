@@ -55,6 +55,9 @@
     &.disabled {
 
     }
+    &.active{
+      pointer-events: none;
+    }
   }
   .outlined.#{map-get($scheme, 'class_name')} {
     color: var(--index_0_text);
@@ -67,6 +70,9 @@
     &.checked {
 
     }
+    &.active{
+      pointer-events: none;
+    }
 
     &.disabled {
 
@@ -87,6 +93,9 @@
     &.disabled {
 
     }
+    &.active{
+      pointer-events: none;
+    }
 
   }
   .contained.#{map-get($scheme, 'class_name')} {
@@ -104,7 +113,9 @@
     &.disabled {
 
     }
-
+    &.active{
+      pointer-events: none;
+    }
   }
   .link.#{map-get($scheme, 'class_name')} {
 
@@ -138,17 +149,18 @@
     &.disabled {
 
     }
+    &.active{
+      pointer-events: none;
+    }
+
 
   }
 }
 
 
-.disabled {
-  color: var(--index_2_text) !important;
-  pointer-events: none !important;
-  cursor: default !important;
-}
-
 .icon {
   @include default_svg()
+}
+.active{
+
 }

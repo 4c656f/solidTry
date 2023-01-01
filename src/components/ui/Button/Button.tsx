@@ -14,6 +14,7 @@ type ButtonCustomProps<E extends ElementType = ElementType> = {
     size?: IElementsSize;
     children?: JSX.Element;
     className?: string;
+    active?: boolean;
     as?: E
 }
 
@@ -35,6 +36,7 @@ const Button = <E extends ElementType = typeof defaultElement>(props: ButtonProp
         defaultIconStyles,
         size = "small",
         children,
+        active,
         ...rest
     } = props
 
@@ -51,6 +53,9 @@ const Button = <E extends ElementType = typeof defaultElement>(props: ButtonProp
         <Dynamic
             component={Element}
             class={`${classNames.join(' ')} ${className ? className : ""}`}
+            classList={{
+                [classes.active]: props.active,
+            }}
             {...rest}
         >
             {children}

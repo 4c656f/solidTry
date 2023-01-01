@@ -1,6 +1,6 @@
 import {A} from "solid-start";
 import {Component, createEffect, createSignal, For, Show} from "solid-js";
-import {createServerData$} from "solid-start/server";
+import {createServerAction$,createServerMultiAction$, createServerData$} from "solid-start/server";
 import {db} from "~/db";
 import classes from './index.module.scss'
 import {unwrap} from "solid-js/store";
@@ -8,7 +8,10 @@ import {safeUserSelect} from "~/common/prisma/selectors";
 import {IFeedPost} from "~/types/IFeedPost";
 import CustomImage from "~/components/ui/Image/CustomImage";
 import {getPosts, IGetPosts} from "~/common/prisma/rawQueries";
-import {getUserFromSession} from "~/db/session";
+import {getUserFromSession, requireUser} from "~/db/session";
+import Button from "~/components/ui/Button/Button";
+import LikeCounter from "~/components/ui/LikeCounter/LikeCounter";
+import PostSmall from "~/components/ui/PostSmall/PostSmall";
 
 
 const Home: Component = () => {
@@ -23,7 +26,6 @@ const Home: Component = () => {
 
 
     const postsFromServer = createServerData$(async ([, page]: [string, number], {request}) => {
-
 
         const user = await getUserFromSession(request)
 
@@ -42,7 +44,28 @@ const Home: Component = () => {
     }, {
         key: () => ['posts', page()] as [string, number]
     })
+    // const [likeEnrolling,  likeEnroll] = createServerMultiAction$(async (data: { postId: number }, { request }) => {
+    //
+    //         const {
+    //            postId
+    //         } = data
+    //
+    //         const user = await requireUser(request, '/sign-in', true);
+    //         await db.postLike.create({
+    //             data: {
+    //                 authorId: Number(user.userId),
+    //                 postId: data.postId,
+    //                 likeType: 1
+    //             }
+    //         });
+    //
+    //         return true;
+    // },{
+    //     invalidate: []
+    // });
 
+
+    //OBSERVER EFFECT
     createEffect(() => {
         if (observerRef) observerRef.disconnect();
         if (postsFromServer.loading || !postsFromServer() || postsFromServer()!.length < 1) return;
@@ -58,7 +81,7 @@ const Home: Component = () => {
         observerRef.observe(elemRef)
     })
 
-
+    //POSTS EFFECT
     createEffect(() => {
         if (postsFromServer.state === 'ready') {
             setPosts(prev => {
@@ -83,14 +106,7 @@ const Home: Component = () => {
         >
             <For each={posts()} fallback={null}>
                 {(item, index) => (
-                    <article>
-                        <A href={`/post/${item.link}`}>
-                            <h1>{item.title}</h1>
-                        </A>
-                        <h1>{item.likeInitial}</h1>
-
-
-                    </article>
+                    <PostSmall {...item}/>
                 )}
             </For>
 
