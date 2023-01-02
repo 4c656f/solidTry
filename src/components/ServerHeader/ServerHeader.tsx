@@ -71,6 +71,14 @@ export default function ServerHeader() {
                     </li>,
                         <Show when={user.data?.user}>
                             <li>
+                                <Button
+                                    href={'/create-post'}
+                                    as={A}
+                                >
+                                    <span>create post</span>
+                                </Button>
+                            </li>
+                            <li>
                                 <A
                                     href={'/account'}
                                     class={classes.image_link}
@@ -84,6 +92,7 @@ export default function ServerHeader() {
                                     />
                                 </A>
                             </li>
+
                         </Show>,
 
                         <Show when={!user.data?.user}>

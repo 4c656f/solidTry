@@ -27,6 +27,7 @@ const PostSmall:Component<PostSmallProps> = (props:PostSmallProps) => {
             <A
                 class={classes.link}
                 href={`/post/${link}`}
+                replace={true}
             >
                 <h1>{title}</h1>
             </A>

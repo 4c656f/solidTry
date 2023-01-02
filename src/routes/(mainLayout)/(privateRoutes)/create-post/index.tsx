@@ -4,8 +4,12 @@ import classes from './create-post.module.scss'
 import {marked, Renderer} from 'marked'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-typescript'
+import 'prismjs/plugins/autoloader/prism-autoloader.js'
 import './codeTheme.scss'
 import TextArea from '~/components/ui/TextArea/TextArea';
+import DOMPurify from 'dompurify';
+import {isServer} from "solid-js/web";
+
 
 type IndexProps = {}
 
@@ -42,6 +46,22 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
     const renderer = new Renderer();
 
+    function addScript(src:string) {
+        let s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        s.onload = function () {
+            document.body.removeChild(s);
+
+        };
+        s.onerror = function () {
+            document.body.removeChild(s);
+        };
+        document.body.appendChild(s);
+    }
+
+
+
     renderer.code = function (code, params) {
         let codeHighlighted: string = ''
         let fileName
@@ -50,15 +70,19 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
         if (codeParams) {
             [language, fileName] = codeParams;
+            console.log('prism')
             if (Prism.languages[language]) {
+
                 codeHighlighted = Prism.highlight(code, Prism.languages[language], language);
             } else {
-                import(`prismjs/components/prism-${language}` /* @vite-ignore */)
-                codeHighlighted = Prism.highlight(code, Prism.languages.js, 'js');
+                // addScript(`prismjs/components/prism-${language}.min.js`)
+                // import(`prismjs/components/prism-${language}.js` /* @vite-ignore */)
+                Prism.plugins.autoloader.loadLanguages(language, ()=>{}, ()=>{})
+                codeHighlighted = Prism.highlight(code, Prism.languages.typescript, 'typescript');
             }
         }
 
-        return `<pre class="language-${language}">${fileName ? `<span class="file_name">${fileName}</span>` : ''}<code class="language-${language}">${codeHighlighted ? codeHighlighted : code}</code></pre>`
+        return `<pre class="language-${language}">${fileName ? `<span class="file_name">${fileName}</span>` : ''}<code class="language-${language}">${codeHighlighted}</code></pre>`
     }
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -72,6 +96,7 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
     onMount(() => {
 
+        Prism.plugins.autoloader.languages_path = 'http://localhost:3000/node_modules/prismjs/components/'
 
         const mouseUpHandler = () => {
             setIsUp(false)
@@ -100,8 +125,37 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
     const textAreaHtmlMemo = createMemo(()=>{
         return marked(textAreaValue(), {
             renderer: renderer,
+            sanitize: true,
+            sanitizer(html: string): string {
+                console.log('sanitizer', html)
+                if(isServer){
+                    return html
+                }
+                return DOMPurify.sanitize(html, {ALLOWED_TAGS: ['p']})
+            }
         })
     })
+
+
+    const handleKeyUp = (e: KeyboardEvent & {currentTarget: HTMLTextAreaElement, target: Element}) => {
+
+        if(e.key === 'Tab'){
+
+        }else{
+            setTextAreaValue(e.currentTarget.value)
+        }
+    }
+
+    const handleKeyDown = (e: KeyboardEvent & {currentTarget: HTMLTextAreaElement, target: Element}) => {
+        if (e.key === 'Tab') {
+            e.preventDefault()
+            const value = e.currentTarget.value
+            const start = e.currentTarget.selectionStart
+            const end = e.currentTarget.selectionEnd;
+            textAreaRef.setRangeText('   ', start, end, 'end')
+            setTextAreaValue(value.substring(0, start) + '   ' + value.substring(end))
+        }
+    }
 
     return (
         <div
@@ -117,11 +171,8 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
                     <TextArea
                         value={textAreaValue()}
                         ref={textAreaRef}
-
-                        onKeyUp={(e) => {
-                            setTextAreaValue(e.currentTarget.value)
-                        }}
-
+                        onKeyUp={handleKeyUp}
+                        onKeyDown={handleKeyDown}
 
                     />
 

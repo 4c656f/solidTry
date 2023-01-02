@@ -34,7 +34,9 @@ export function routeData(prop: RouteDataArgs) {
 
         return postFromDb
     }, {
-        key: [prop.params.link]
+        key: [prop.params.link],
+        ssrLoadFrom: "server",
+        deferStream: true
     })
     
     return post
