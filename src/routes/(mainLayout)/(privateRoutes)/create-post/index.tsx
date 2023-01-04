@@ -9,6 +9,7 @@ import './codeTheme.scss'
 import TextArea from '~/components/ui/TextArea/TextArea';
 import DOMPurify from 'dompurify';
 import {isServer} from "solid-js/web";
+import {getBaseUrl} from "~/common/baseUrl";
 
 
 type IndexProps = {}
@@ -46,7 +47,7 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
     const renderer = new Renderer();
 
-    function addScript(src:string) {
+    function addScript(src: string) {
         let s = document.createElement('script');
         s.src = src;
         s.async = true;
@@ -59,7 +60,6 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
         };
         document.body.appendChild(s);
     }
-
 
 
     renderer.code = function (code, params) {
@@ -77,7 +77,9 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
             } else {
                 // addScript(`prismjs/components/prism-${language}.min.js`)
                 // import(`prismjs/components/prism-${language}.js` /* @vite-ignore */)
-                Prism.plugins.autoloader.loadLanguages(language, ()=>{}, ()=>{})
+                Prism.plugins.autoloader.loadLanguages(language, () => {
+                }, () => {
+                })
                 codeHighlighted = Prism.highlight(code, Prism.languages.typescript, 'typescript');
             }
         }
@@ -96,18 +98,18 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
     onMount(() => {
 
-        Prism.plugins.autoloader.languages_path = 'http://localhost:3000/node_modules/prismjs/components/'
+        Prism.plugins.autoloader.languages_path = `${getBaseUrl()}/node_modules/prismjs/components/`
 
         const mouseUpHandler = () => {
             setIsUp(false)
         }
+
         document.addEventListener('mouseup', mouseUpHandler)
 
         onCleanup(() => {
             document.removeEventListener('mouseup', mouseUpHandler)
         })
     })
-
 
 
     createEffect(() => {
@@ -122,13 +124,13 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
         })
     })
 
-    const textAreaHtmlMemo = createMemo(()=>{
+    const textAreaHtmlMemo = createMemo(() => {
         return marked(textAreaValue(), {
             renderer: renderer,
             sanitize: true,
             sanitizer(html: string): string {
                 console.log('sanitizer', html)
-                if(isServer){
+                if (isServer) {
                     return html
                 }
                 return DOMPurify.sanitize(html, {ALLOWED_TAGS: ['p']})
@@ -137,16 +139,16 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
     })
 
 
-    const handleKeyUp = (e: KeyboardEvent & {currentTarget: HTMLTextAreaElement, target: Element}) => {
+    const handleKeyUp = (e: KeyboardEvent & { currentTarget: HTMLTextAreaElement, target: Element }) => {
 
-        if(e.key === 'Tab'){
+        if (e.key === 'Tab') {
 
-        }else{
+        } else {
             setTextAreaValue(e.currentTarget.value)
         }
     }
 
-    const handleKeyDown = (e: KeyboardEvent & {currentTarget: HTMLTextAreaElement, target: Element}) => {
+    const handleKeyDown = (e: KeyboardEvent & { currentTarget: HTMLTextAreaElement, target: Element }) => {
         if (e.key === 'Tab') {
             e.preventDefault()
             const value = e.currentTarget.value
@@ -202,7 +204,6 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
                     class={classes.editor_container_item_md}
                     innerHTML={textAreaHtmlMemo()}
                 />
-
 
 
             </div>

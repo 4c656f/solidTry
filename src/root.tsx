@@ -1,30 +1,11 @@
 // @refresh reload
-import {Show, Suspense} from "solid-js";
-import {
-    Body,
-    ErrorBoundary,
-    ErrorMessage,
-    FileRoutes,
-    Head,
-    Html,
-    Meta,
-    RouteDataArgs,
-    Routes,
-    Scripts,
-    Title,
-    useRouteData,
-} from "solid-start";
+import {Suspense} from "solid-js";
+import {Body, ErrorBoundary, FileRoutes, Head, Html, Meta, Routes, Scripts, Title,} from "solid-start";
 import "./root.scss";
 import {isDark} from "~/sharedSignals/theme";
-import {useUser$} from "~/serverCallers/useUser$";
-import { HttpStatusCode } from "solid-start/server";
-
-
-
 
 
 export default function Root() {
-
 
 
     return (

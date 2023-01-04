@@ -1,7 +1,4 @@
-import {createContext, JSX, Resource, useContext} from "solid-js";
-import {useUser$} from "~/serverCallers/useUser$";
-
-
+import {createContext, JSX, Resource} from "solid-js";
 
 
 type UserContextData = {
@@ -12,7 +9,7 @@ type UserContextData = {
             userImage: string;
         } | null;
     } | undefined;
-    resource: Resource<{ user: { userId: string; userName: string; userImage: string; } | null; } | undefined>|undefined
+    resource: Resource<{ user: { userId: string; userName: string; userImage: string; } | null; } | undefined> | undefined
 }
 
 export const UserContext = createContext<UserContextData>({data: {user: null}, resource: undefined});

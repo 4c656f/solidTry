@@ -21,7 +21,7 @@ const Account: Component<AccountProps> = (props: AccountProps) => {
                 </Button>
             </Form>
             <Button
-                onClick={()=> {
+                onClick={() => {
                     refetchRouteData()
                 }}
             >

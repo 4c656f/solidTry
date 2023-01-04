@@ -5,7 +5,6 @@ import axios from "axios";
 import {createUserSession, requireUser} from "~/db/session";
 import {IEmailsGithubResponse, IGithubOauthResponse} from "~/types/IGithubOauthResponse";
 import {db} from "~/db";
-import {validateHeaderName} from "http";
 
 export async function GET({request}: APIEvent) {
 
@@ -36,7 +35,7 @@ export async function GET({request}: APIEvent) {
             Authorization: `token ${token.data.access_token}`
         }
     })
-    const email:string  = emailReq.data.find(value=>value.primary)!.email
+    const email: string = emailReq.data.find(value => value.primary)!.email
     // console.log(email)
     const user = await db.user.upsert({
         where: {
@@ -50,5 +49,5 @@ export async function GET({request}: APIEvent) {
         }
     })
 
-    return createUserSession(`${user.id}`,`${user.userName}`,`${user.image}`, '/')
+    return createUserSession(`${user.id}`, `${user.userName}`, `${user.image}`, '/')
 }

@@ -1,15 +1,12 @@
 import {Component} from "solid-js";
-import {Post} from "@prisma/client";
 import {IGetPosts} from "~/common/prisma/rawQueries";
-import { A } from "solid-start/router";
+import {A} from "solid-start/router";
 import classes from "./PostSmall.module.scss"
 import LikeCounter from "~/components/ui/LikeCounter/LikeCounter";
 
-type PostSmallProps = {
+type PostSmallProps = {} & IGetPosts
 
-} & IGetPosts
-
-const PostSmall:Component<PostSmallProps> = (props:PostSmallProps) => {
+const PostSmall: Component<PostSmallProps> = (props: PostSmallProps) => {
 
     const {
         title,

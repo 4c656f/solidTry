@@ -51,14 +51,14 @@ $font-size-h4: 20px;
 
 @mixin default_h1($size:$font-size-h1, $weight:$font-weight-index0_2) {
   font-family: $font_family;
-  color: var(--index_0_text);
+
   font-size: $size;
   font-weight: $weight;
 }
 
 @mixin default_h2($size:$font-size-h2, $weight:$font-weight-index0_5) {
   font-family: $font_family;
-  color: var(--index_0_text);
+
   font-size: $size;
   font-weight: $weight;
 }
@@ -66,14 +66,12 @@ $font-size-h4: 20px;
 @mixin default_h3($size:$font-size-h3, $weight:$font-weight-index0_5) {
   font-family: $font_family;
   font-size: $size;
-  color: var(--index_0_text);
   font-weight: $weight;
 }
 
 @mixin default_h4($size:$font-size-h4, $weight:$font-weight-index1) {
   font-family: $font_family;
   font-size: $size;
-  color: var(--index_0_text);
   font-weight: $weight;
 }
 

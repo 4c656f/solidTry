@@ -1,0 +1,57 @@
+@import "../../../variables";
+
+
+.container {
+  all: unset;
+  color: var(--index_0_text);
+  font-family: $font_family;
+  transition: $default_transition;
+  border-radius: $border_radius;
+
+
+  @include default_h4($size: 16px);
+  @include medium_padding($left: 10px);
+
+}
+
+.main_container {
+  width: max-content;
+  height: max-content;
+  position: relative;
+}
+
+.container:focus::placeholder {
+  opacity: 0;
+}
+
+.container::placeholder {
+  color: var(--index_2_text);
+  transition: $default_transition;
+  @include default_h4($weight: $font-weight-index2, $size: 16px);
+
+}
+
+.small {
+  @include small_padding;
+}
+
+.medium {
+  @include medium_padding;
+}
+
+.large {
+  @include large_padding;
+}
+
+@each $scheme in $color_schemes {
+
+  .container.#{map-get($scheme, 'class_name')} {
+    background-color: map-get($scheme, 'background');
+  }
+}
+
+.main_container > svg {
+
+  @include default_svg_layout;
+  @include default_svg();
+}

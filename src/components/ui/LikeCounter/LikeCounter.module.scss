@@ -1,16 +1,19 @@
-.container{
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: max-content;
   grid-gap: 5px;
 }
-.like_icon{
+
+.like_icon {
   transform: rotate(180deg);
 }
-.positive{
+
+.positive {
   color: chartreuse;
 }
-.negative{
+
+.negative {
   color: red;
 }

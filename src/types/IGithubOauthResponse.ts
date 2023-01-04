@@ -51,5 +51,5 @@ export type IEmailsGithubResponse = {
     email: string,
     primary: boolean,
     verified: boolean,
-    visibility: 'private'| null
+    visibility: 'private' | null
 }

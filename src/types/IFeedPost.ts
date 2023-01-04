@@ -2,8 +2,6 @@ import {safeUserSelect} from "~/common/prisma/selectors";
 import {User} from "@prisma/client";
 
 
-
-
 export type IFeedPost = {
     author: { [key in keyof typeof safeUserSelect]: User[key] },
     title: string,

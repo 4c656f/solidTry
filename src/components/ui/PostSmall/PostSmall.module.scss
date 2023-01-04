@@ -1,6 +1,6 @@
 @import "../../../variables";
 
-.container{
+.container {
   background-color: var(--index_1_color);
   border-radius: $border_radius;
   display: flex;
@@ -9,12 +9,12 @@
 
   @include medium_padding();
 }
-.like_section{
+
+.like_section {
 
 }
 
 
-
-.link{
+.link {
   text-decoration: none;
 }

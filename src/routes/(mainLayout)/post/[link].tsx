@@ -1,25 +1,23 @@
 import {Component} from "solid-js";
 import {useParams} from "@solidjs/router";
 import {RouteDataArgs} from "solid-start/index";
-import {useUser$} from "~/serverCallers/useUser$";
 import {useRouteData} from "solid-start";
-import {createServerData$, redirect, ServerError} from "solid-start/server";
+import {createServerData$, redirect} from "solid-start/server";
 import {db} from "~/db";
 import {safeUserSelect} from "~/common/prisma/selectors";
 
-type PostProps = {
+type PostProps = {}
 
-}
 export function routeData(prop: RouteDataArgs) {
-    
-    
-    const post = createServerData$(async ([link],{request})=>{
+
+
+    const post = createServerData$(async ([link], {request}) => {
         const postFromDb = await db.post.findUnique({
-            where:{
+            where: {
                 link: link
             },
             include: {
-                author:{
+                author: {
                     select: safeUserSelect
                 },
                 _count: {
@@ -30,7 +28,7 @@ export function routeData(prop: RouteDataArgs) {
                 },
             },
         })
-        if(!postFromDb)throw redirect('/')
+        if (!postFromDb) throw redirect('/')
 
         return postFromDb
     }, {
@@ -38,14 +36,13 @@ export function routeData(prop: RouteDataArgs) {
         ssrLoadFrom: "server",
         deferStream: true
     })
-    
+
     return post
 }
-const Post:Component<PostProps> = (props:PostProps) => {
 
-    const {
+const Post: Component<PostProps> = (props: PostProps) => {
 
-    } = props
+    const {} = props
 
     const data = useRouteData<typeof routeData>()
 

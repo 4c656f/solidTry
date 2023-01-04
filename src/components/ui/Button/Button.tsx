@@ -3,8 +3,9 @@ import {IColorIndex} from "../../../types/IColorIndex";
 import {ButtonType} from "../../../types/IElementType";
 import {IElementsSize} from "../../../types/IElementsSize";
 import {Dynamic} from "solid-js/web";
-import {ElementType} from "@suid/types";
-import type {ComponentProps, JSX} from "solid-js";
+import {ElementType} from "~/types/IElemntTypeEnum";
+import {ComponentProps, JSX} from "solid-js";
+
 
 type ButtonCustomProps<E extends ElementType = ElementType> = {
     variant?: ButtonType;
@@ -47,14 +48,17 @@ const Button = <E extends ElementType = typeof defaultElement>(props: ButtonProp
         `${classes[variant]}`,
         `${classes[size]}`,
         `${classes[`color_${colorIndex}_index`]}`,
+
     ]
+
 
     return (
         <Dynamic
             component={Element}
-            class={`${classNames.join(' ')} ${className ? className : ""}`}
+            class={`${classNames.join(' ')} ${props.className}`}
             classList={{
                 [classes.active]: props.active,
+
             }}
             {...rest}
         >

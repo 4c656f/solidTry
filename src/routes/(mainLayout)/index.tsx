@@ -1,16 +1,10 @@
-import {A} from "solid-start";
 import {Component, createEffect, createSignal, For, Show} from "solid-js";
-import {createServerAction$,createServerMultiAction$, createServerData$} from "solid-start/server";
+import {createServerData$} from "solid-start/server";
 import {db} from "~/db";
 import classes from './index.module.scss'
 import {unwrap} from "solid-js/store";
-import {safeUserSelect} from "~/common/prisma/selectors";
-import {IFeedPost} from "~/types/IFeedPost";
-import CustomImage from "~/components/ui/Image/CustomImage";
 import {getPosts, IGetPosts} from "~/common/prisma/rawQueries";
-import {getUserFromSession, requireUser} from "~/db/session";
-import Button from "~/components/ui/Button/Button";
-import LikeCounter from "~/components/ui/LikeCounter/LikeCounter";
+import {getUserFromSession} from "~/db/session";
 import PostSmall from "~/components/ui/PostSmall/PostSmall";
 
 
@@ -36,7 +30,7 @@ const Home: Component = () => {
         })
 
         console.log(query)
-        const postsFromPrisma:IGetPosts[] = await db.$queryRawUnsafe(query)
+        const postsFromPrisma: IGetPosts[] = await db.$queryRawUnsafe(query)
 
         // console.log(postsFromPrisma)
 

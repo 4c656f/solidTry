@@ -55,7 +55,8 @@
     &.disabled {
 
     }
-    &.active{
+
+    &.active {
       pointer-events: none;
     }
   }
@@ -70,7 +71,8 @@
     &.checked {
 
     }
-    &.active{
+
+    &.active {
       pointer-events: none;
     }
 
@@ -93,7 +95,8 @@
     &.disabled {
 
     }
-    &.active{
+
+    &.active {
       pointer-events: none;
     }
 
@@ -113,7 +116,8 @@
     &.disabled {
 
     }
-    &.active{
+
+    &.active {
       pointer-events: none;
     }
   }
@@ -122,7 +126,7 @@
     color: var(--index_0_text);
 
 
-    & .icon {
+    & > svg {
       opacity: 0;
     }
 
@@ -130,13 +134,13 @@
       background-color: map-get($scheme, 'hover');
       color: var(--index_primary_text);
 
-      & .icon {
+      & > svg {
         animation-name: icon_appearance;
         animation-duration: 0.2s;
         opacity: 1;
       }
 
-      & .icon path {
+      & > svg > path {
         stroke: var(--index_primary_text);
       }
 
@@ -149,7 +153,8 @@
     &.disabled {
 
     }
-    &.active{
+
+    &.active {
       pointer-events: none;
     }
 
@@ -158,9 +163,10 @@
 }
 
 
-.icon {
+.container > svg {
   @include default_svg()
 }
-.active{
+
+.active {
 
 }

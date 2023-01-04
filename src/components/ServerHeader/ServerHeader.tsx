@@ -7,7 +7,7 @@ import classes from "./serverHeader.module.scss";
 import Button from "../ui/Button/Button";
 import {A} from 'solid-start';
 import {setIsDark} from "~/sharedSignals/theme";
-import {createEffect, Show, useContext} from 'solid-js';
+import {Show, useContext} from 'solid-js';
 import CustomImage from "~/components/ui/Image/CustomImage";
 import {UserContext} from "~/components/UserContext/UserContext";
 

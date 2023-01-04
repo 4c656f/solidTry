@@ -1,6 +1,6 @@
 import React from 'react';
-import {Component, createEffect} from "solid-js";
-import {Outlet, refetchRouteData, RouteDataArgs, useRouteData} from "solid-start";
+import {Component} from "solid-js";
+import {Outlet, RouteDataArgs, useRouteData} from "solid-start";
 import ServerHeader from "~/components/ServerHeader/ServerHeader";
 import {useUser$} from "~/serverCallers/useUser$";
 import {UserContextProvider} from "~/components/UserContext/UserContext";
@@ -18,9 +18,6 @@ const MainLayout: Component<MainLayoutProps> = (props: MainLayoutProps) => {
     const {} = props
 
     const user = useRouteData<typeof routeData>();
-
-
-
 
 
     return (

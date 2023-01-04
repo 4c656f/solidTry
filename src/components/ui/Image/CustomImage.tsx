@@ -10,7 +10,7 @@ type ImageProps = {
     quality?: number
 }
 
-const CustomImage:Component<ImageProps> = (props:ImageProps) => {
+const CustomImage: Component<ImageProps> = (props: ImageProps) => {
 
 
     const {
@@ -25,15 +25,14 @@ const CustomImage:Component<ImageProps> = (props:ImageProps) => {
 
     const [isLoaded, setIsLoaded] = createSignal(false)
 
-    onMount(()=>{
+    onMount(() => {
         const img = new Image(width, height)
         img.src = src
 
-        img.onload = ()=> {
+        img.onload = () => {
             setIsLoaded(true)
         }
     })
-
 
 
     return (
@@ -43,7 +42,7 @@ const CustomImage:Component<ImageProps> = (props:ImageProps) => {
             {!isLoaded() ?
                 <div
                     class={classes.placeholder}
-                />: <img
+                /> : <img
                     src={src}
                     alt={alt}
                     height={height}

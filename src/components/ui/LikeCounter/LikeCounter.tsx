@@ -25,7 +25,7 @@ const LikeCounter: Component<LikeCounterProps> = (props: LikeCounterProps) => {
     const [likeType, setLikeType] = createSignal<number>(likeInitial)
 
 
-    const [likeEnrolling, likeEnroll] = createServerAction$(async (data:{ postId: number; likeType: -1|1|0 }, {request}) => {
+    const [likeEnrolling, likeEnroll] = createServerAction$(async (data: { postId: number; likeType: -1 | 1 | 0 }, {request}) => {
 
         const {
             postId,
@@ -34,13 +34,13 @@ const LikeCounter: Component<LikeCounterProps> = (props: LikeCounterProps) => {
 
         const user = await requireUser(request, '/sign-in', true);
         await db.postLike.upsert({
-            where:{
-              authorId_postId: {
-                  postId: postId,
-                  authorId: Number(user.userId)
-              }
+            where: {
+                authorId_postId: {
+                    postId: postId,
+                    authorId: Number(user.userId)
+                }
             },
-            update:{
+            update: {
                 likeType: likeType
             },
             create: {
@@ -56,10 +56,10 @@ const LikeCounter: Component<LikeCounterProps> = (props: LikeCounterProps) => {
     });
 
 
-    const handleEnroll = async (type: 1|-1) => {
+    const handleEnroll = async (type: 1 | -1) => {
 
 
-        const curType = type===likeType()?0:type
+        const curType = type === likeType() ? 0 : type
 
         await likeEnroll({
             postId,
@@ -74,22 +74,22 @@ const LikeCounter: Component<LikeCounterProps> = (props: LikeCounterProps) => {
         >
 
             <Button
-                icon={<ArrowIcon />}
+                icon={<ArrowIcon/>}
                 disabled={likeEnrolling.pending}
                 // active={likeType() === -1}
-                onClick={()=>handleEnroll(-1)}
+                onClick={() => handleEnroll(-1)}
             />
             <span
                 classList={{
-                    [classes.positive]: (likes() + likeType())>0,
-                    [classes.negative]: (likes() + likeType())<0,
+                    [classes.positive]: (likes() + likeType()) > 0,
+                    [classes.negative]: (likes() + likeType()) < 0,
                 }}
             >{likes() + likeType()}</span>
             <Button
                 disabled={likeEnrolling.pending}
                 icon={<ArrowIcon class={classes.like_icon}/>}
                 // active={likeType() === 1}
-                onClick={()=>handleEnroll(1)}
+                onClick={() => handleEnroll(1)}
             />
 
 
