@@ -6,7 +6,7 @@ import Prism from 'prismjs'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/plugins/autoloader/prism-autoloader.js'
 import './codeTheme.scss'
-import TextArea from '~/components/ui/TextArea/TextArea';
+import TextArea from '~/shared /ui/atoms/TextArea/TextArea';
 import DOMPurify from 'dompurify';
 import {isServer} from "solid-js/web";
 import {getBaseUrl} from "~/common/baseUrl";

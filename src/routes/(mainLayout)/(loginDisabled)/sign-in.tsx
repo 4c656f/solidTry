@@ -1,9 +1,9 @@
 import {Component, createEffect, createSignal} from "solid-js";
 import {useAuthAction$} from "../../../serverCallers/useAuthAction$";
-import Button from "~/components/ui/Button/Button";
+import Button from "~/shared /ui/atoms/Button/Button";
 import classes from './signIn.module.scss'
 import ArrowIcon from "~/materials/arrow-left.svg?component-solid"
-import FormInput from "~/components/ui/FormInput/FormInput";
+import FormInput from "~/shared /ui/atoms/FormInput/FormInput";
 
 type SignInProps = {}
 

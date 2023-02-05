@@ -5,7 +5,7 @@ import classes from './index.module.scss'
 import {unwrap} from "solid-js/store";
 import {getPosts, IGetPosts} from "~/common/prisma/rawQueries";
 import {getUserFromSession} from "~/db/session";
-import PostSmall from "~/components/ui/PostSmall/PostSmall";
+import PostSmall from "~/widget/PostSmall/PostSmall";
 
 
 const Home: Component = () => {
