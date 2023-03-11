@@ -6,7 +6,7 @@ import Prism from 'prismjs'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/plugins/autoloader/prism-autoloader.js'
 import './codeTheme.scss'
-import TextArea from '~/shared /ui/atoms/TextArea/TextArea';
+import TextArea from '~/shared/ui/atoms/TextArea/TextArea';
 import DOMPurify from 'dompurify';
 import {isServer} from "solid-js/web";
 import {getBaseUrl} from "~/common/baseUrl";
@@ -47,20 +47,6 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
 
     const renderer = new Renderer();
 
-    function addScript(src: string) {
-        let s = document.createElement('script');
-        s.src = src;
-        s.async = true;
-        s.onload = function () {
-            document.body.removeChild(s);
-
-        };
-        s.onerror = function () {
-            document.body.removeChild(s);
-        };
-        document.body.appendChild(s);
-    }
-
 
     renderer.code = function (code, params) {
         let codeHighlighted: string = ''
@@ -79,6 +65,7 @@ const Index: Component<IndexProps> = (props: IndexProps) => {
                 // import(`prismjs/components/prism-${language}.js` /* @vite-ignore */)
                 Prism.plugins.autoloader.loadLanguages(language, () => {
                 }, () => {
+                    
                 })
                 codeHighlighted = Prism.highlight(code, Prism.languages.typescript, 'typescript');
             }

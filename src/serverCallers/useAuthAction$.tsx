@@ -1,5 +1,5 @@
 import {createServerAction$, redirect} from "solid-start/server/index";
-import {IProvidersEnum} from "~/types/IProvidersEnum";
+import {IProvidersEnum} from "~/shared/helpers/types/IProvidersEnum";
 import {signInScheme} from "~/common/zodSchemes/authScheme";
 import {z, ZodError} from 'zod'
 import {db} from "~/db";

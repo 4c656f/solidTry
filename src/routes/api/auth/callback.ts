@@ -3,7 +3,7 @@ import type {APIEvent} from "solid-start/api";
 import url from 'node:url';
 import axios from "axios";
 import {createUserSession, requireUser} from "~/db/session";
-import {IEmailsGithubResponse, IGithubOauthResponse} from "~/types/IGithubOauthResponse";
+import {IEmailsGithubResponse, IGithubOauthResponse} from "~/shared/helpers/types/IGithubOauthResponse";
 import {db} from "~/db";
 
 export async function GET({request}: APIEvent) {

@@ -1,6 +1,6 @@
 import classes from './Input.module.scss'
-import {IColorIndex} from "../../../../types/IColorIndex";
-import {IElementsSize} from "../../../../types/IElementsSize";
+import {IColorIndex} from "../../../helpers/types/IColorIndex";
+import {IElementsSize} from "../../../helpers/types/IElementsSize";
 import type {JSX} from "solid-js";
 import {Component, ComponentProps} from "solid-js";
 

@@ -1,9 +1,9 @@
 import classes from "./Button.module.scss"
-import {IColorIndex} from "../../../../types/IColorIndex";
-import {ButtonType} from "../../../../types/IElementType";
-import {IElementsSize} from "../../../../types/IElementsSize";
+import {IColorIndex} from "../../../helpers/types/IColorIndex";
+import {ButtonType} from "../../../helpers/types/IElementType";
+import {IElementsSize} from "../../../helpers/types/IElementsSize";
 import {Dynamic} from "solid-js/web";
-import {ElementType} from "~/types/IElemntTypeEnum";
+import {ElementType} from "~/shared/helpers/types/IElemntTypeEnum";
 import {ComponentProps, JSX} from "solid-js";
 
 

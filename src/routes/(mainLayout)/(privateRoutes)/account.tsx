@@ -1,5 +1,5 @@
 import type {Component} from "solid-js";
-import Button from "~/shared /ui/atoms/Button/Button";
+import Button from "~/shared/ui/atoms/Button/Button";
 import {logout} from "~/db/session";
 import {createServerAction$} from "solid-start/server/index";
 import {refetchRouteData} from "solid-start";

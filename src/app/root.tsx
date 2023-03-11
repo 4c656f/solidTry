@@ -2,7 +2,7 @@
 import {Suspense} from "solid-js";
 import {Body, ErrorBoundary, FileRoutes, Head, Html, Meta, Routes, Scripts, Title,} from "solid-start";
 import "./root.scss";
-import {isDark} from "~/sharedSignals/theme";
+import {isDark} from "~/shared/models/theme";
 
 
 export default function Root() {

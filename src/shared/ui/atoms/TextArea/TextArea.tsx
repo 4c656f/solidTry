@@ -1,4 +1,4 @@
-import {IColorIndex} from "../../../../types/IColorIndex";
+import {IColorIndex} from "../../../helpers/types/IColorIndex";
 import classes from './textArea.module.scss'
 import type {ComponentProps} from 'solid-js'
 
@@ -13,6 +13,7 @@ const TextArea = ((props: TextAreaProps) => {
     const {
         colorIndex = "0",
         className,
+        value,
         ...rest
     } = props
 
@@ -27,6 +28,7 @@ const TextArea = ((props: TextAreaProps) => {
     return (
 
         <textarea
+            value={props.value}
             class={classArr.join(' ')}
             ref={props.ref}
             {...rest}

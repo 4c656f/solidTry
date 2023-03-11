@@ -1,24 +1,20 @@
 import React from 'react';
-import HeaderItem from "../../shared /ui/molecules /HeaderItem/HeaderItem";
-import HeaderSection from "../../shared /ui/molecules /HeaderSection/HeaderSection";
-import Header from "../../shared /ui/molecules /Header/Header";
+import HeaderItem from "../../shared/ui/molecules /HeaderItem/HeaderItem";
+import HeaderSection from "../../shared/ui/molecules /HeaderSection/HeaderSection";
+import Header from "../../shared/ui/molecules /Header/Header";
 import classes from "./serverHeader.module.scss";
 
-import Button from "../../shared /ui/atoms/Button/Button";
+import Button from "../../shared/ui/atoms/Button/Button";
 import {A} from 'solid-start';
-import {setIsDark} from "~/sharedSignals/theme";
+import {setIsDark} from "~/shared/models/theme";
 import {Show, useContext} from 'solid-js';
-import CustomImage from "~/shared /ui/atoms/Image/CustomImage";
+import CustomImage from "~/shared/ui/atoms/Image/CustomImage";
 import {UserContext} from "~/components/UserContext/UserContext";
 
 
 export default function ServerHeader() {
 
     const user = useContext(UserContext)
-
-    // createEffect(() => {
-    //     console.log(user.resource?.loading, 'header----')
-    // })
 
     return (
         <>

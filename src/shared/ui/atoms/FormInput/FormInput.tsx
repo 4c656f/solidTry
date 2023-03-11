@@ -1,6 +1,6 @@
 import classes from './Input.module.css'
-import {IColorIndex} from "~/types/IColorIndex";
-import {IElementsSize} from "~/types/IElementsSize";
+import {IColorIndex} from "~/shared/helpers/types/IColorIndex";
+import {IElementsSize} from "~/shared/helpers/types/IElementsSize";
 import {Component, ComponentProps, createSignal} from "solid-js";
 
 type InputOwnProps = {
