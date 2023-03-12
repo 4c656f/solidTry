@@ -1,10 +1,10 @@
 import classes from "./LayoutIndexFeed.module.scss";
 import {Component, createEffect, createSignal, For, Show} from "solid-js";
 import {createServerData$} from "solid-start/server";
-import {db} from "~/db";
+import {prismaClient} from "~/db";
 import {unwrap} from "solid-js/store";
 import {getPosts, IGetPosts} from "~/common/prisma/rawQueries";
-import {getUserFromSession} from "~/db/session";
+import {getUserFromSession} from "~/shared/helpers/session";
 import PostSmall from "~/entities/PostSmall/PostSmall";
 
 type LayoutIndexFeed = {}
@@ -31,7 +31,7 @@ export const LayoutIndexFeed: Component<LayoutIndexFeed> = (props) => {
         })
 
         console.log(query)
-        const postsFromPrisma: IGetPosts[] = await db.$queryRawUnsafe(query)
+        const postsFromPrisma: IGetPosts[] = await prismaClient.$queryRawUnsafe(query)
 
         // console.log(postsFromPrisma)
 
@@ -46,7 +46,7 @@ export const LayoutIndexFeed: Component<LayoutIndexFeed> = (props) => {
     //         } = data
     //
     //         const user = await requireUser(request, '/sign-in', true);
-    //         await db.postLike.create({
+    //         await prismaClient.postLike.create({
     //             data: {
     //                 authorId: Number(user.userId),
     //                 postId: data.postId,

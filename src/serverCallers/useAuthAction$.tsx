@@ -2,7 +2,7 @@ import {createServerAction$, redirect} from "solid-start/server/index";
 import {IProvidersEnum} from "~/shared/helpers/types/IProvidersEnum";
 import {signInScheme} from "~/common/zodSchemes/authScheme";
 import {z, ZodError} from 'zod'
-import {db} from "~/db";
+import {prismaClient} from "~/db";
 import {marked} from "marked";
 
 
@@ -28,7 +28,7 @@ export const useAuthAction$ = () => createServerAction$(async (props: useAuthAct
             throw data.error.format();
         }
 
-        const user = await db.user.findFirst({
+        const user = await prismaClient.user.findFirst({
             where: {
                 email: props.data?.email,
                 password: props.data?.password

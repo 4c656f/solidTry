@@ -1,7 +1,7 @@
 import {Component, createSignal} from "solid-js";
 import {createServerAction$} from "solid-start/server/index";
-import {requireUser} from "~/db/session";
-import {db} from "~/db";
+import {requireUser} from "~/shared/helpers/session";
+import {prismaClient} from "~/db";
 import Button from "~/shared/ui/atoms/Button/Button";
 import ArrowIcon from "~/materials/like.svg"
 import classes from './LikeCounter.module.scss'
@@ -33,7 +33,7 @@ const LikeCounter: Component<LikeCounterProps> = (props: LikeCounterProps) => {
         } = data
 
         const user = await requireUser(request, '/sign-in', true);
-        await db.postLike.upsert({
+        await prismaClient.postLike.upsert({
             where: {
                 authorId_postId: {
                     postId: postId,
@@ -76,7 +76,7 @@ const LikeCounter: Component<LikeCounterProps> = (props: LikeCounterProps) => {
             <Button
                 icon={<ArrowIcon/>}
                 disabled={likeEnrolling.pending}
-                // active={likeType() === -1}
+                // disabled={likeType() === -1}
                 onClick={() => handleEnroll(-1)}
             />
             <span
@@ -88,7 +88,7 @@ const LikeCounter: Component<LikeCounterProps> = (props: LikeCounterProps) => {
             <Button
                 disabled={likeEnrolling.pending}
                 icon={<ArrowIcon class={classes.like_icon}/>}
-                // active={likeType() === 1}
+                // disabled={likeType() === 1}
                 onClick={() => handleEnroll(1)}
             />
 

@@ -1,5 +1,5 @@
 import {createServerData$} from "solid-start/server";
-import {getUserFromSession} from "../db/session";
+import {getUserFromSession} from "../shared/helpers/session";
 
 
 export const useUser$ = (key?: string) => createServerData$(async (_, {request}) => {

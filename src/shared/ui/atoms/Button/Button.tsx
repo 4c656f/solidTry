@@ -4,7 +4,7 @@ import {ButtonType} from "../../../helpers/types/IElementType";
 import {IElementsSize} from "../../../helpers/types/IElementsSize";
 import {Dynamic} from "solid-js/web";
 import {ElementType} from "~/shared/helpers/types/IElemntTypeEnum";
-import {ComponentProps, JSX} from "solid-js";
+import {ComponentProps, createEffect, JSX} from "solid-js";
 
 
 type ButtonCustomProps<E extends ElementType = ElementType> = {
@@ -15,7 +15,7 @@ type ButtonCustomProps<E extends ElementType = ElementType> = {
     size?: IElementsSize;
     children?: JSX.Element;
     className?: string;
-    active?: boolean;
+    disabled?: boolean;
     as?: E
 }
 
@@ -37,7 +37,7 @@ const Button = <E extends ElementType = typeof defaultElement>(props: ButtonProp
         defaultIconStyles,
         size = "small",
         children,
-        active,
+        disabled,
         ...rest
     } = props
 
@@ -52,12 +52,13 @@ const Button = <E extends ElementType = typeof defaultElement>(props: ButtonProp
     ]
 
 
+
     return (
         <Dynamic
             component={Element}
             class={`${classNames.join(' ')} ${props.className}`}
             classList={{
-                [classes.active]: props.active,
+                [classes.active]: props.disabled,
 
             }}
             {...rest}

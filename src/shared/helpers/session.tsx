@@ -1,6 +1,6 @@
 import {redirect} from "solid-start/server";
 import {createCookieSessionStorage} from "solid-start/session";
-import {db} from ".";
+import {prismaClient} from "~/db";
 
 type LoginForm = {
     username: string;
@@ -8,7 +8,7 @@ type LoginForm = {
 };
 
 export async function register({username, password}: LoginForm) {
-    return db.user.create({
+    return prismaClient.user.create({
         data: {
             userName: username,
             password: password
@@ -17,7 +17,7 @@ export async function register({username, password}: LoginForm) {
 }
 
 export async function login({username, password}: LoginForm) {
-    const user = await db.user.findUnique({where: {userName: username}});
+    const user = await prismaClient.user.findUnique({where: {userName: username}});
     if (!user) return null;
     const isCorrectPassword = password === user.password;
     if (!isCorrectPassword) return null;
@@ -55,6 +55,14 @@ export async function getUserFromSession(request: Request) {
     return {userId, userName, userImage};
 }
 
+
+
+
+export async function requireUser(
+    request: Request,
+    redirectTo: string,
+    isRequired: false
+): Promise<{ userId: string, userName: string, userImage: string }>
 export async function requireUser(
     request: Request,
     redirectTo: string,
@@ -86,7 +94,7 @@ export async function getUserFromDb(request: Request) {
     const userFromSession = await getUserFromSession(request);
 
     try {
-        const user = await db.user.findUnique({where: {id: Number(userFromSession?.userId)}});
+        const user = await prismaClient.user.findUnique({where: {id: Number(userFromSession?.userId)}});
         return user;
     } catch {
         throw logout(request);

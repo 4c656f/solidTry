@@ -20,7 +20,9 @@ export default function Root() {
             >
 
                 <ErrorBoundary
-
+                    fallback={(error) => (
+                        <div style={{color: 'red'}}>{error}</div>
+                    )}
                 >
                     <Suspense fallback={<div>Loading</div>}>
                         <Routes>
