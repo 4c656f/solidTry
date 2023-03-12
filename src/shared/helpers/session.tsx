@@ -56,8 +56,6 @@ export async function getUserFromSession(request: Request) {
 }
 
 
-
-
 export async function requireUser(
     request: Request,
     redirectTo: string,

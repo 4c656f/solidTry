@@ -3,6 +3,6 @@ import {IndexPageLayout} from "~/pages/IndexPage/ui/IndexPageLayout";
 
 
 const Home: Component = () => {
-    return(<IndexPageLayout/>)
+    return (<IndexPageLayout/>)
 }
 export default Home

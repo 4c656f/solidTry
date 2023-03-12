@@ -3,7 +3,7 @@ import classes from "./LayoutCreatePost.module.scss";
 import type {Component, JSX} from "solid-js";
 import {createStore} from "solid-js/store";
 import {ICreatePostStore} from "~/entities/CreatePost/helpers";
-import { ContextCreatePost } from "../models";
+import {ContextCreatePost} from "../models";
 
 type LayoutCreatePost = {
     FeatureMarkdownEditor: JSX.Element;
@@ -13,9 +13,7 @@ type LayoutCreatePost = {
 
 export const LayoutCreatePost: Component<LayoutCreatePost> = (props) => {
 
-    const {
-
-    } = props
+    const {} = props
 
     const [getPostStore, setPostStore] = createStore<ICreatePostStore>({
         PostTitle: "",

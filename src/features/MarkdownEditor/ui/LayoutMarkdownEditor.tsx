@@ -114,7 +114,7 @@ export const LayoutMarkdownEditor: Component<LayoutMarkdownEditor> = (props) => 
     const {setPostStore} = useCustomContext(ContextCreatePost)
 
     const textAreaHtmlMemo = createMemo(() => {
-        const html =  marked(textAreaValue(), {
+        const html = marked(textAreaValue(), {
             renderer: renderer,
             sanitize: true,
             sanitizer(html: string): string {

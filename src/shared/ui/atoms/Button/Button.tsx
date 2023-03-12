@@ -4,7 +4,7 @@ import {ButtonType} from "../../../helpers/types/IElementType";
 import {IElementsSize} from "../../../helpers/types/IElementsSize";
 import {Dynamic} from "solid-js/web";
 import {ElementType} from "~/shared/helpers/types/IElemntTypeEnum";
-import {ComponentProps, createEffect, JSX} from "solid-js";
+import {ComponentProps, JSX} from "solid-js";
 
 
 type ButtonCustomProps<E extends ElementType = ElementType> = {
@@ -50,7 +50,6 @@ const Button = <E extends ElementType = typeof defaultElement>(props: ButtonProp
         `${classes[`color_${colorIndex}_index`]}`,
 
     ]
-
 
 
     return (

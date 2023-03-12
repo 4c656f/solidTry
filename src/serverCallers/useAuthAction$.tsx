@@ -3,7 +3,6 @@ import {IProvidersEnum} from "~/shared/helpers/types/IProvidersEnum";
 import {signInScheme} from "~/common/zodSchemes/authScheme";
 import {z, ZodError} from 'zod'
 import {prismaClient} from "~/db";
-import {marked} from "marked";
 
 
 export type useAuthActionProps$ = {
