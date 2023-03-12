@@ -3,7 +3,7 @@ import {useParams} from "@solidjs/router";
 import {RouteDataArgs} from "solid-start/index";
 import {useRouteData} from "solid-start";
 import {createServerData$, redirect} from "solid-start/server";
-import {db} from "~/db";
+import {prismaClient} from "~/db";
 import {safeUserSelect} from "~/common/prisma/selectors";
 
 type PostProps = {}
@@ -12,7 +12,7 @@ export function routeData(prop: RouteDataArgs) {
 
 
     const post = createServerData$(async ([link], {request}) => {
-        const postFromDb = await db.post.findUnique({
+        const postFromDb = await prismaClient.post.findUnique({
             where: {
                 link: link
             },

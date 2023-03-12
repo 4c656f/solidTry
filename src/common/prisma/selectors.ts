@@ -1,5 +1,5 @@
 import {User} from "@prisma/client";
-import {IChangeTypeOfKeys} from "~/types/IChangeTypeOfKeys";
+import {IChangeTypeOfKeys} from "~/shared/helpers/types/IChangeTypeOfKeys";
 
 
 type ISafeUserSelect = Partial<IChangeTypeOfKeys<User, boolean>>

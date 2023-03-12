@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from "solid-js";
 import {Outlet, RouteDataArgs, useRouteData} from "solid-start";
-import ServerHeader from "~/components/ServerHeader/ServerHeader";
+import ServerHeader from "~/widgets/ServerHeader/ServerHeader";
 import {useUser$} from "~/serverCallers/useUser$";
 import {UserContextProvider} from "~/components/UserContext/UserContext";
 

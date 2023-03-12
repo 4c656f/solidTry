@@ -1,7 +1,7 @@
 import {Component} from "solid-js";
 import {Outlet, RouteDataArgs} from "solid-start";
 import {createServerData$} from "solid-start/server/index";
-import {requireUser} from "~/db/session";
+import {requireUser} from "~/shared/helpers/session";
 
 type LoginDisabledProps = {}
 

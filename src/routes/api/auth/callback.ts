@@ -2,9 +2,9 @@ import type {APIEvent} from "solid-start/api";
 
 import url from 'node:url';
 import axios from "axios";
-import {createUserSession, requireUser} from "~/db/session";
-import {IEmailsGithubResponse, IGithubOauthResponse} from "~/types/IGithubOauthResponse";
-import {db} from "~/db";
+import {createUserSession, requireUser} from "~/shared/helpers/session";
+import {IEmailsGithubResponse, IGithubOauthResponse} from "~/shared/helpers/types/IGithubOauthResponse";
+import {prismaClient} from "~/db";
 
 export async function GET({request}: APIEvent) {
 
@@ -37,7 +37,7 @@ export async function GET({request}: APIEvent) {
     })
     const email: string = emailReq.data.find(value => value.primary)!.email
     // console.log(email)
-    const user = await db.user.upsert({
+    const user = await prismaClient.user.upsert({
         where: {
             email: email
         },
